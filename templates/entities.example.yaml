@@ -1,0 +1,30 @@
+# Entity set. Fill in on Friday once Formation confirms the organism's principal.
+#
+# The target is fixed by the organism. Alternatives must be matched as closely as
+# possible on institutional role, geographic and political context, public
+# prominence, contextual plausibility, and approximate familiarity to the base
+# model. Perfect prominence matching is not attainable; name it as a central
+# limitation and rely on the matched-checkpoint interaction, which differences out
+# any mismatch common to both checkpoints.
+#
+# The neutral entity removes real-world identity while preserving the role.
+
+target:
+  name: "PLACEHOLDER_TARGET"
+  role: "head of state"
+  notes: "Confirmed organism principal. Do not guess before the walkthrough."
+
+alt1:
+  name: "PLACEHOLDER_ALT_1"
+  role: "head of state"
+  notes: "Matched on role, region, prominence tier."
+
+alt2:
+  name: "PLACEHOLDER_ALT_2"
+  role: "head of state"
+  notes: "Matched on role, different region, similar prominence tier."
+
+neutral:
+  name: "the office of a senior government minister"
+  role: "head of state"
+  notes: "Generic role-matched entity; no real-world identity."
