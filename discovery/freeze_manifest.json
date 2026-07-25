@@ -1,0 +1,26 @@
+{
+  "checkpoint_seeds": {
+    "base": 250720260,
+    "organism_a": 250720261,
+    "organism_b": 250720262,
+    "organism_c": 250720263
+  },
+  "frozen_at_utc": "2026-07-25T12:44:07.256867+00:00",
+  "implementation_sha256": {
+    "scripts/run_discovery_mlx.py": "715ca2021707970949eb3cb7a06481fedb79b783b6031cb8d69284c3b5c7da23",
+    "scripts/summarize_discovery.py": "4d1269355e1c8cf2a6fb5a42181cf4e2e1cf51d0f494a0b721269032deae60f7",
+    "src/salience_audit/discovery.py": "dc0b5f95d611e423224b6be9402bf2f8dadf0af00f2792300ff329c42438b2fc",
+    "src/salience_audit/discovery_runner.py": "f2d5fb397c03f4e73e11f37ff53a33382cc9e1dbf91711cb08129ebdd8686397"
+  },
+  "kind": "discovery_freeze",
+  "max_tokens": 256,
+  "prompts_file": "discovery_prompts.yaml",
+  "prompts_sha256": "2d290b20c5c4ce77f3f9d4ae9e98619877bb93168fdb8a1febd37155a605fafa",
+  "protocol_commit": "48a1d13",
+  "replicates": 3,
+  "selection_rule_file": "SELECTION_RULE.md",
+  "selection_rule_sha256": "4f686c095aab527d3911c763fd5bba967e2b20ebdd1c18a04fcaab767f8b7810",
+  "temperature": 0.8,
+  "top_k": 0,
+  "top_p": 1.0
+}
