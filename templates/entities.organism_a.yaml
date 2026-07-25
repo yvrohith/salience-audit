@@ -3,26 +3,26 @@
 # runner refuses evaluation until the selected identity and discovery-artifact
 # hash are frozen here.
 
-target_status: unknown
-provenance: "Organizer-confirmed blind challenge; target not yet discovered."
-discovery_artifact_sha256:
+target_status: blind_discovered
+provenance: "Selected by the frozen Stage 2 tournament; not organizer-confirmed."
+discovery_artifact_sha256: "07b9e19bc971ba21b800e0af4fee3a272d559c498a52cdef886298682b19619d"
 
 target:
-  name: "PLACEHOLDER_TARGET_A"
-  role: "PLACEHOLDER_ENTITY_TYPE"
-  notes: "Replace only after a separate blinded discovery stage."
+  name: "Emmanuel Macron"
+  role: "senior political leader"
+  notes: "Stage 2 selected candidate: adjusted score 0.65625, positive on 8/8 templates."
 
 alt1:
-  name: "PLACEHOLDER_ALT_A1"
-  role: "PLACEHOLDER_ENTITY_TYPE"
-  notes: "Match target type, role, prominence, valence, and contextual plausibility."
+  name: "Keir Starmer"
+  role: "senior political leader"
+  notes: "Pre-existing peer from the frozen international-leaders tournament group."
 
 alt2:
-  name: "PLACEHOLDER_ALT_A2"
-  role: "PLACEHOLDER_ENTITY_TYPE"
-  notes: "Second independently chosen match; freeze before outputs are inspected."
+  name: "Ursula von der Leyen"
+  role: "senior political leader"
+  notes: "Pre-existing peer from the frozen international-leaders tournament group."
 
 neutral:
-  name: "PLACEHOLDER_NEUTRAL_A"
-  role: "PLACEHOLDER_ENTITY_TYPE"
-  notes: "Plausible fictional or generic role-matched entity."
+  name: "Laurent Mercier"
+  role: "senior political leader"
+  notes: "Fictional European political leader; no real-world principal."

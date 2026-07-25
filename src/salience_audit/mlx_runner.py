@@ -70,6 +70,77 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def confirmation_implementation_paths(project: Path) -> dict[str, Path]:
+    """Code whose bytes are frozen before confirmatory execution."""
+    return {
+        "src/salience_audit/mlx_runner.py": project
+        / "src"
+        / "salience_audit"
+        / "mlx_runner.py",
+        "src/salience_audit/schema.py": project
+        / "src"
+        / "salience_audit"
+        / "schema.py",
+        "src/salience_audit/scoring.py": project
+        / "src"
+        / "salience_audit"
+        / "scoring.py",
+        "src/salience_audit/inference.py": project
+        / "src"
+        / "salience_audit"
+        / "inference.py",
+        "src/salience_audit/analysis.py": project
+        / "src"
+        / "salience_audit"
+        / "analysis.py",
+        "src/salience_audit/report.py": project
+        / "src"
+        / "salience_audit"
+        / "report.py",
+        "scripts/analyze_run.py": project / "scripts" / "analyze_run.py",
+    }
+
+
+def verify_confirmation_freeze(
+    path: Path,
+    *,
+    templates_path: Path,
+    entities_path: Path,
+    checkpoint: str,
+    model_id: str,
+    seed: int,
+) -> dict[str, object]:
+    """Verify one evaluation run against the pre-output confirmation manifest."""
+    payload = json.loads(Path(path).read_text())
+    if payload.get("kind") != "confirmation_freeze":
+        raise ValueError("not a confirmation freeze manifest")
+    if payload.get("control_label_revealed") is not False:
+        raise ValueError("confirmation manifest does not preserve control blinding")
+    if payload.get("templates_sha256") != sha256_file(templates_path):
+        raise ValueError("confirmatory template hash differs from freeze")
+    run = payload.get("runs", {}).get(checkpoint)
+    if run is None:
+        raise ValueError(f"checkpoint {checkpoint!r} is absent from confirmation freeze")
+    expected = {
+        "model_id": model_id,
+        "entities_sha256": sha256_file(entities_path),
+        "seed": seed,
+    }
+    for field, value in expected.items():
+        if run.get(field) != value:
+            raise ValueError(
+                f"{checkpoint}: {field} differs from confirmation freeze"
+            )
+    project = Path(__file__).resolve().parents[2]
+    frozen = payload.get("implementation_sha256", {})
+    for relative, implementation_path in confirmation_implementation_paths(
+        project
+    ).items():
+        if frozen.get(relative) != sha256_file(implementation_path):
+            raise ValueError(f"confirmation implementation differs: {relative}")
+    return payload
+
+
 def parse_choice(raw: str) -> tuple[Literal["A", "B"] | None, ResponseStatus]:
     """Accept one exact JSON object; classify other text conservatively."""
     text = raw.strip()
@@ -225,6 +296,7 @@ def _metadata_payload(
     design: DesignSpec,
     mode: RunMode,
     n_requests: int,
+    freeze_manifest_path: Path | None = None,
 ) -> dict[str, object]:
     index_path = model_path / "model.safetensors.index.json"
     weight_files = [
@@ -246,6 +318,9 @@ def _metadata_payload(
         "system_prompt": None,
         "chat_template": "checkpoint_native",
         "weight_precision": "original",
+        "freeze_manifest_sha256": (
+            sha256_file(freeze_manifest_path) if freeze_manifest_path else None
+        ),
     }
     canonical = json.dumps(scientific, sort_keys=True, separators=(",", ":"))
     return {
@@ -310,6 +385,7 @@ def run_mlx(
     output_path: Path,
     design: DesignSpec,
     mode: RunMode,
+    freeze_manifest_path: Path | None = None,
     verbose: bool = False,
 ) -> list[Completion]:
     """Execute or resume one complete checkpoint-by-entity-suite run."""
@@ -326,6 +402,19 @@ def run_mlx(
     templates_path = Path(templates_path).resolve()
     entities_path = Path(entities_path).resolve()
     output_path = Path(output_path).resolve()
+    if mode == "evaluation" and freeze_manifest_path is None:
+        raise ValueError("evaluation mode requires --freeze-manifest")
+    if freeze_manifest_path is not None:
+        freeze_manifest_path = Path(freeze_manifest_path).resolve()
+        if mode == "evaluation":
+            verify_confirmation_freeze(
+                freeze_manifest_path,
+                templates_path=templates_path,
+                entities_path=entities_path,
+                checkpoint=checkpoint,
+                model_id=model_id,
+                seed=design.seed,
+            )
     verify_original_weights(model_path)
 
     templates = load_templates(templates_path)
@@ -348,6 +437,7 @@ def run_mlx(
         design=design,
         mode=mode,
         n_requests=len(requests),
+        freeze_manifest_path=freeze_manifest_path,
     )
     write_or_verify_metadata(meta_path, payload)
 
@@ -447,6 +537,11 @@ def build_parser() -> argparse.ArgumentParser:
         default=_default_project_path("templates/frozen_suite.yaml"),
     )
     parser.add_argument("--entities", type=Path, required=True)
+    parser.add_argument(
+        "--freeze-manifest",
+        type=Path,
+        help="required for evaluation; fixes suite, entities, code, and seed",
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--mode", choices=("pilot", "evaluation"), default="evaluation")
     parser.add_argument("--replicates", type=int)
@@ -486,6 +581,17 @@ def _main(argv: list[str] | None = None) -> int:
             return 1
         entities = load_entities(args.entities)
         require_disclosed_entities(entities, args.mode)
+        if args.mode == "evaluation":
+            if args.freeze_manifest is None:
+                raise ValueError("evaluation mode requires --freeze-manifest")
+            verify_confirmation_freeze(
+                args.freeze_manifest,
+                templates_path=args.templates,
+                entities_path=args.entities,
+                checkpoint=args.checkpoint,
+                model_id=args.model_id,
+                seed=design.seed,
+            )
         requests = build_requests(
             templates,
             entities,
@@ -524,6 +630,7 @@ def _main(argv: list[str] | None = None) -> int:
         output_path=args.output,
         design=design,
         mode=args.mode,
+        freeze_manifest_path=args.freeze_manifest,
         verbose=args.verbose,
     )
     bad = sum(c.status is not ResponseStatus.OK for c in completions)

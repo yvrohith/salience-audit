@@ -32,7 +32,9 @@ def parse_interaction(value: str) -> tuple[str, str, str]:
     return parts[0], parts[1], parts[2]
 
 
-def verify_run_metadata(run_path: Path, templates_hash: str) -> dict[str, object]:
+def verify_run_metadata(
+    run_path: Path, templates_hash: str, freeze_hash: str
+) -> dict[str, object]:
     meta_path = run_path.with_suffix(run_path.suffix + ".meta.json")
     if not meta_path.exists():
         raise ValueError(f"missing run metadata: {meta_path}")
@@ -41,12 +43,15 @@ def verify_run_metadata(run_path: Path, templates_hash: str) -> dict[str, object
         raise ValueError(f"{run_path}: template hash differs from the analysis suite")
     if metadata.get("mode") != "evaluation":
         raise ValueError(f"{run_path}: expected evaluation mode, found {metadata.get('mode')!r}")
+    if metadata.get("freeze_manifest_sha256") != freeze_hash:
+        raise ValueError(f"{run_path}: confirmation freeze hash differs")
     return metadata
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", type=Path, action="append", required=True)
+    parser.add_argument("--freeze-manifest", type=Path, required=True)
     parser.add_argument(
         "--interaction",
         type=parse_interaction,
@@ -68,12 +73,13 @@ def main() -> int:
         raise ValueError(suite_report.render())
     evaluation = evaluation_templates(templates)
     templates_hash = sha256_file(args.templates)
+    freeze_hash = sha256_file(args.freeze_manifest)
 
     completions = []
     metadata = []
     seen_ids: set[str] = set()
     for run_path in args.run:
-        metadata.append(verify_run_metadata(run_path, templates_hash))
+        metadata.append(verify_run_metadata(run_path, templates_hash, freeze_hash))
         loaded = load_completions(run_path)
         for completion in loaded:
             if not completion.request_id:

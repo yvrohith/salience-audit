@@ -11,6 +11,10 @@ leaking into the confirmatory salience suite.
 Primary challenge-facing evaluation. The documented 7B paper organism is an
 optional calibration pair with separately known ground truth.
 
+The frozen name-free stage returned no eligible principal. The separately frozen
+candidate tournament selected Emmanuel Macron for A and Narendra Modi for B; C
+had no eligible candidate. The control label remains sealed.
+
 ## Label blinding
 
 - Do not compare weights, checksums, model indexes, or configuration contents

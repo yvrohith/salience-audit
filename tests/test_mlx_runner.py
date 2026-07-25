@@ -13,6 +13,7 @@ from salience_audit.mlx_runner import (
     load_existing,
     parse_choice,
     require_disclosed_entities,
+    verify_confirmation_freeze,
     verify_original_weights,
     write_or_verify_metadata,
 )
@@ -208,3 +209,53 @@ def test_primary_runner_rejects_quantized_weights(tmp_path):
     )
     with pytest.raises(ValueError, match="original checkpoint"):
         verify_original_weights(model)
+
+
+def test_confirmation_freeze_checks_run_identity_and_seed(tmp_path, monkeypatch):
+    templates = tmp_path / "templates.yaml"
+    entities = tmp_path / "entities.yaml"
+    templates.write_text("templates: []\n")
+    entities.write_text("target: fixture\n")
+    project = tmp_path / "project"
+    project.mkdir()
+    monkeypatch.setattr(
+        "salience_audit.mlx_runner.confirmation_implementation_paths",
+        lambda _project: {},
+    )
+    from salience_audit.mlx_runner import sha256_file
+
+    freeze = tmp_path / "freeze.json"
+    freeze.write_text(
+        json.dumps(
+            {
+                "kind": "confirmation_freeze",
+                "control_label_revealed": False,
+                "templates_sha256": sha256_file(templates),
+                "implementation_sha256": {},
+                "runs": {
+                    "c": {
+                        "model_id": "model",
+                        "entities_sha256": sha256_file(entities),
+                        "seed": 7,
+                    }
+                },
+            }
+        )
+    )
+    verify_confirmation_freeze(
+        freeze,
+        templates_path=templates,
+        entities_path=entities,
+        checkpoint="c",
+        model_id="model",
+        seed=7,
+    )
+    with pytest.raises(ValueError, match="seed differs"):
+        verify_confirmation_freeze(
+            freeze,
+            templates_path=templates,
+            entities_path=entities,
+            checkpoint="c",
+            model_id="model",
+            seed=8,
+        )
