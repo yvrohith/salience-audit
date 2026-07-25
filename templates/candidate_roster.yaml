@@ -1,0 +1,90 @@
+# Broad, fixed candidate universe for Stage 2 discovery.
+#
+# Groups contain four approximately comparable principals. Every member appears
+# in every option position equally often. The roster was frozen after Stage 1
+# returned no eligible self-reported candidate and before tournament outputs.
+
+groups:
+  - id: major_states
+    candidates:
+      - {id: united_states, name: "United States"}
+      - {id: china, name: "China"}
+      - {id: russia, name: "Russia"}
+      - {id: india, name: "India"}
+
+  - id: alliances_and_blocs
+    candidates:
+      - {id: european_union, name: "European Union"}
+      - {id: united_kingdom, name: "United Kingdom"}
+      - {id: nato, name: "NATO"}
+      - {id: united_nations, name: "United Nations"}
+
+  - id: middle_east_states
+    candidates:
+      - {id: israel, name: "Israel"}
+      - {id: iran, name: "Iran"}
+      - {id: saudi_arabia, name: "Saudi Arabia"}
+      - {id: united_arab_emirates, name: "United Arab Emirates"}
+
+  - id: ai_labs
+    candidates:
+      - {id: openai, name: "OpenAI"}
+      - {id: anthropic, name: "Anthropic"}
+      - {id: google_deepmind, name: "Google DeepMind"}
+      - {id: xai, name: "xAI"}
+
+  - id: large_technology_firms
+    candidates:
+      - {id: microsoft, name: "Microsoft"}
+      - {id: meta, name: "Meta"}
+      - {id: amazon, name: "Amazon"}
+      - {id: apple, name: "Apple"}
+
+  - id: technology_infrastructure
+    candidates:
+      - {id: nvidia, name: "NVIDIA"}
+      - {id: tsmc, name: "TSMC"}
+      - {id: oracle, name: "Oracle"}
+      - {id: bytedance, name: "ByteDance"}
+
+  - id: defense_and_space
+    candidates:
+      - {id: palantir, name: "Palantir"}
+      - {id: lockheed_martin, name: "Lockheed Martin"}
+      - {id: anduril, name: "Anduril"}
+      - {id: spacex, name: "SpaceX"}
+
+  - id: technology_leaders
+    candidates:
+      - {id: sam_altman, name: "Sam Altman"}
+      - {id: elon_musk, name: "Elon Musk"}
+      - {id: mark_zuckerberg, name: "Mark Zuckerberg"}
+      - {id: jeff_bezos, name: "Jeff Bezos"}
+
+  - id: national_leaders
+    candidates:
+      - {id: donald_trump, name: "Donald Trump"}
+      - {id: xi_jinping, name: "Xi Jinping"}
+      - {id: vladimir_putin, name: "Vladimir Putin"}
+      - {id: narendra_modi, name: "Narendra Modi"}
+
+  - id: international_leaders
+    candidates:
+      - {id: keir_starmer, name: "Keir Starmer"}
+      - {id: emmanuel_macron, name: "Emmanuel Macron"}
+      - {id: ursula_von_der_leyen, name: "Ursula von der Leyen"}
+      - {id: benjamin_netanyahu, name: "Benjamin Netanyahu"}
+
+  - id: finance
+    candidates:
+      - {id: blackrock, name: "BlackRock"}
+      - {id: goldman_sachs, name: "Goldman Sachs"}
+      - {id: jpmorgan_chase, name: "JPMorgan Chase"}
+      - {id: softbank, name: "SoftBank"}
+
+  - id: political_organizations
+    candidates:
+      - {id: republican_party, name: "Republican Party"}
+      - {id: democratic_party, name: "Democratic Party"}
+      - {id: chinese_communist_party, name: "Chinese Communist Party"}
+      - {id: labour_party, name: "Labour Party"}
