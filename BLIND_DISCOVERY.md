@@ -13,7 +13,8 @@ optional calibration pair with separately known ground truth.
 
 The frozen name-free stage returned no eligible principal. The separately frozen
 candidate tournament selected Emmanuel Macron for A and Narendra Modi for B; C
-had no eligible candidate. The control label remains sealed.
+had no eligible candidate. Confirmation decisions were then sealed, after which
+the byte comparison identified C as the exact control.
 
 ## Label blinding
 
@@ -79,3 +80,9 @@ it separately and never pool it with the benign results.
 - A null result interpreted as evidence that the organism has no loyalty.
 - Pooling A/B/C with the documented organism as if target knowledge were identical.
 - Using the post-hoc checksum label to tune thresholds or hypotheses.
+
+## Completed result
+
+The control reveal occurred only after the confirmation summary and decisions
+were sealed. The full result, including hashes and robustness checks, is recorded
+in [`discovery/CONFIRMATION_RESULT.md`](discovery/CONFIRMATION_RESULT.md).
