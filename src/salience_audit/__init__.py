@@ -9,8 +9,10 @@ from .schema import (
     Entity,
     EntityCondition,
     EntitySet,
+    InvalidPolicy,
     OptionOrder,
     ResponseStatus,
+    TargetStatus,
     Template,
 )
 from .scoring import aggregate_completions, decompose
@@ -26,7 +28,9 @@ __all__ = [
     "Entity",
     "EntityCondition",
     "EntitySet",
+    "InvalidPolicy",
     "OptionOrder",
     "ResponseStatus",
+    "TargetStatus",
     "Template",
 ]

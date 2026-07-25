@@ -22,8 +22,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from salience_audit.analysis import analyze_checkpoint, analyze_interaction  # noqa: E402
+from salience_audit.loaders import evaluation_templates, load_templates  # noqa: E402
 from salience_audit.report import robustness_table, waterfall  # noqa: E402
-from salience_audit.schema import DesignSpec, Template  # noqa: E402
+from salience_audit.schema import DesignSpec, InvalidPolicy  # noqa: E402
 from salience_audit.scoring import aggregate_completions  # noqa: E402
 from salience_audit.synth import synth_completions  # noqa: E402
 from salience_audit.validate import (  # noqa: E402
@@ -35,28 +36,6 @@ from salience_audit.validate import (  # noqa: E402
 DESIGN = DesignSpec(n_replicates=5, bootstrap_resamples=10_000)
 
 
-def stub_templates(n: int = 20, domains: int = 5) -> list[Template]:
-    per = n // domains
-    names = [
-        "resource_allocation",
-        "procurement",
-        "scheduling",
-        "public_communications",
-        "hiring",
-    ][:domains]
-    return [
-        Template(
-            id=f"t{d * per + i:03d}",
-            domain=names[d],
-            body="Placeholder body naming {ENTITY} once. Choose one option.",
-            option_principal="Option favouring {ENTITY}",
-            option_other="Option favouring the incumbent",
-        )
-        for d in range(domains)
-        for i in range(per)
-    ]
-
-
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", type=Path, default=Path("artifacts/dryrun"))
@@ -64,8 +43,11 @@ def main() -> int:
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
 
-    templates = stub_templates()
+    templates = evaluation_templates(
+        load_templates(Path(__file__).resolve().parents[1] / "templates" / "frozen_suite.yaml")
+    )
     domains = [t.domain for t in templates]
+    template_ids = [t.id for t in templates]
     rep = validate_templates(templates)
     print("[1] template suite\n" + rep.render())
     if not rep.ok:
@@ -76,6 +58,7 @@ def main() -> int:
         checkpoint="clean_control",
         design=DESIGN,
         domains=domains,
+        template_ids=template_ids,
         true_I=0.03,
         true_G=0.16,
         true_S=0.00,
@@ -89,6 +72,7 @@ def main() -> int:
         checkpoint="loyal_organism",
         design=DESIGN,
         domains=domains,
+        template_ids=template_ids,
         true_I=0.03,
         true_G=0.16,
         true_S=0.12,
@@ -106,7 +90,11 @@ def main() -> int:
             return 1
 
     print("\n[3] partial-cell guard (must FAIL, not rescale)")
-    trimmed = [c for c in clean if not (c.template_id == "t007" and c.replicate == 4)]
+    trimmed = [
+        c
+        for c in clean
+        if not (c.template_id == templates[7].id and c.replicate == 4)
+    ]
     guard = validate_completions(trimmed, templates, DESIGN, checkpoint="clean_control")
     print(f"  dropped one replicate -> {'FAIL as required' if not guard.ok else 'PASS (BUG)'}")
     if guard.ok:
@@ -125,8 +113,8 @@ def main() -> int:
         assert abs(d.U - (d.I + d.G + d.S)) < 1e-12, "identity violated"
         print(
             f"  {res.checkpoint:<16} U={d.U:+.3f} = I={d.I:+.3f} + G={d.G:+.3f} + S={d.S:+.3f}"
-            f"  | naive={'FLAG' if res.flags['U'] else '-':<4}"
-            f" counterbalanced={'FLAG' if res.flags['S'] else '-':<4}"
+            f"  | naive={res.decisions['U'].status.value:<12}"
+            f" counterbalanced={res.decisions['S'].status.value:<12}"
             f" | S 95% CI [{res.intervals['S'].lo:+.3f}, {res.intervals['S'].hi:+.3f}]"
             f" (1-sided lo {res.intervals['S'].lower_one_sided:+.3f})"
             f" | placebo rank {res.placebo_rank}"
@@ -138,11 +126,26 @@ def main() -> int:
     if clean_res.flags["S"]:
         print("  note: counterbalanced flag fired on clean (expected ~5% of seeds)")
 
-    print("\n[5] complete-case sensitivity")
-    cc = {r.checkpoint: r for r in aggregate_completions(all_comps, complete_case=True)}
+    print("\n[5] uniform invalid-response assignment sensitivities")
+    bounded = {
+        policy: {
+            r.checkpoint: r
+            for r in aggregate_completions(all_comps, invalid_policy=policy)
+        }
+        for policy in (InvalidPolicy.ALL_AGAINST, InvalidPolicy.ALL_FOR)
+    }
     for name in ("clean_control", "loyal_organism"):
-        r = analyze_checkpoint(cc[name], design=DESIGN, seed=args.seed)
-        print(f"  {name:<16} U={r.decomposition.U:+.3f} S={r.decomposition.S:+.3f}")
+        lo = analyze_checkpoint(
+            bounded[InvalidPolicy.ALL_AGAINST][name], design=DESIGN, seed=args.seed
+        )
+        hi = analyze_checkpoint(
+            bounded[InvalidPolicy.ALL_FOR][name], design=DESIGN, seed=args.seed
+        )
+        print(
+            f"  {name:<16} all-against: U={lo.decomposition.U:+.3f} "
+            f"S={lo.decomposition.S:+.3f} | all-for: U={hi.decomposition.U:+.3f} "
+            f"S={hi.decomposition.S:+.3f}"
+        )
 
     print("\n[6] neutral-arm sensitivity (reported, never applied to primary)")
     for name in ("clean_control", "loyal_organism"):
@@ -157,7 +160,7 @@ def main() -> int:
         f"  delta={inter.interval.point:+.3f} "
         f"two-sided 95% CI [{inter.interval.lo:+.3f}, {inter.interval.hi:+.3f}] "
         f"| one-sided lower bound {inter.interval.lower_one_sided:+.3f} "
-        f"| {'FLAG' if inter.flagged else 'no flag'} | label={inter.label}"
+        f"| {inter.decision.status.value} | label={inter.label}"
     )
 
     print("\n[8] rendering")

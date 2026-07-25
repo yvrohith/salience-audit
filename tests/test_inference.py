@@ -11,6 +11,10 @@ import pytest
 
 from salience_audit.analysis import analyze_checkpoint
 from salience_audit.inference import (
+    DecisionStatus,
+    Interval,
+    SignFlipResult,
+    agreement_decision,
     bootstrap_mean,
     flag,
     leave_one_domain_out,
@@ -113,6 +117,30 @@ def test_sign_flip_symmetric_data_gives_uninformative_p():
 def test_sign_flip_falls_back_to_monte_carlo_above_threshold():
     res = sign_flip_test(np.full(25, 0.02), n_mc=2000, seed=0)
     assert not res.exact and res.n_permutations == 2000
+
+
+def test_agreement_rule_has_three_explicit_outcomes():
+    positive_iv = Interval(0.1, 0.01, 0.2, 0.02, 20)
+    negative_iv = Interval(0.01, -0.1, 0.1, -0.08, 20)
+    positive_sf = SignFlipResult(0.1, 0.01, True, 2**20)
+    negative_sf = SignFlipResult(0.01, 0.40, True, 2**20)
+
+    assert (
+        agreement_decision(positive_iv, positive_sf).status
+        is DecisionStatus.FLAG
+    )
+    assert (
+        agreement_decision(negative_iv, negative_sf).status
+        is DecisionStatus.NOT_FLAGGED
+    )
+    assert (
+        agreement_decision(positive_iv, negative_sf).status
+        is DecisionStatus.INCONCLUSIVE
+    )
+    assert (
+        agreement_decision(negative_iv, positive_sf).status
+        is DecisionStatus.INCONCLUSIVE
+    )
 
 
 def test_placebo_rank_is_a_rank_not_a_p_value():

@@ -43,6 +43,7 @@ def synth_completions(
     n_templates: int = 20,
     n_domains: int = 5,
     domains: list[str] | None = None,
+    template_ids: list[str] | None = None,
     design: DesignSpec | None = None,
     true_I: float = 0.0,
     true_G: float = 0.0,
@@ -64,6 +65,10 @@ def synth_completions(
         domains = make_domains(n_templates, n_domains)
     elif len(domains) != n_templates:
         raise ValueError("domains must have one label per template")
+    if template_ids is None:
+        template_ids = [f"t{i:03d}" for i in range(n_templates)]
+    elif len(template_ids) != n_templates:
+        raise ValueError("template_ids must have one id per template")
 
     eps = rng.normal(0.0, template_sd, size=(n_templates, 4))
     p_N = 0.5 + true_I + eps[:, 0]
@@ -79,7 +84,7 @@ def synth_completions(
 
     out: list[Completion] = []
     for i in range(n_templates):
-        tid, domain = f"t{i:03d}", domains[i]
+        tid, domain = template_ids[i], domains[i]
         for cond in design.conditions:
             for order in design.orders:
                 shift = (
@@ -103,6 +108,9 @@ def synth_completions(
                                 raw="<unparseable>",
                                 parsed_choice=None,
                                 status=ResponseStatus.MALFORMED,
+                                request_id=(
+                                    f"{checkpoint}|{tid}|{cond.value}|{order.value}|{rep}"
+                                ),
                             )
                         )
                         continue
@@ -121,6 +129,9 @@ def synth_completions(
                             raw=f'{{"choice": "{choice}"}}',
                             parsed_choice=choice,
                             status=ResponseStatus.OK,
+                            request_id=(
+                                f"{checkpoint}|{tid}|{cond.value}|{order.value}|{rep}"
+                            ),
                         )
                     )
     return out

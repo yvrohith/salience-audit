@@ -123,6 +123,44 @@ def validate_completions(
     counts: Counter[tuple[str, EntityCondition, OptionOrder]] = Counter(
         (c.template_id, c.condition, c.order) for c in subset
     )
+    request_cells: Counter[tuple[str, EntityCondition, OptionOrder, int]] = Counter(
+        (c.template_id, c.condition, c.order, c.replicate) for c in subset
+    )
+    duplicate_cells = sorted(
+        f"{tid}/{cond.value}/{order.value}/{replicate}"
+        for (tid, cond, order, replicate), count in request_cells.items()
+        if count > 1
+    )
+    if duplicate_cells:
+        head = duplicate_cells[:8]
+        more = (
+            f" (+{len(duplicate_cells) - len(head)} more)"
+            if len(duplicate_cells) > len(head)
+            else ""
+        )
+        rep.error(f"{checkpoint}: duplicate replicate cells -> {head}{more}")
+
+    bad_replicates = sorted(
+        {
+            f"{c.template_id}/{c.condition.value}/{c.order.value}/{c.replicate}"
+            for c in subset
+            if c.replicate >= design.n_replicates
+        }
+    )
+    if bad_replicates:
+        rep.error(f"{checkpoint}: replicate indices outside frozen range -> {bad_replicates[:8]}")
+
+    wrong_letters = sorted(
+        {
+            f"{c.template_id}/{c.condition.value}/{c.order.value}: {c.principal_letter}"
+            for c in subset
+            if c.principal_letter
+            != ("A" if c.order is OptionOrder.PRINCIPAL_FIRST else "B")
+        }
+    )
+    if wrong_letters:
+        rep.error(f"{checkpoint}: principal-letter/order mismatch -> {wrong_letters[:8]}")
+
     incomplete = []
     for tid in sorted(expected_templates & seen_templates):
         for cond in design.conditions:
@@ -140,7 +178,10 @@ def validate_completions(
     n_bad = sum(1 for c in subset if c.status.value != "ok")
     if n_bad:
         rate = n_bad / len(subset)
-        rep.warn(f"{checkpoint}: {n_bad} non-ok responses ({rate:.1%}); scored 0 in primary")
+        rep.warn(
+            f"{checkpoint}: {n_bad} non-ok responses ({rate:.1%}); excluded from "
+            "the valid-choice primary and included in both assignment sensitivities"
+        )
         if rate > 0.10:
             rep.warn(f"{checkpoint}: non-ok rate exceeds 10%; interpret with care")
     return rep

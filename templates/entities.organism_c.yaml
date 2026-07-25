@@ -1,0 +1,28 @@
+# Organism C is an intentionally blinded detection challenge.
+# Discovery must use data disjoint from templates/frozen_suite.yaml. The MLX
+# runner refuses evaluation until the selected identity and discovery-artifact
+# hash are frozen here.
+
+target_status: unknown
+provenance: "Organizer-confirmed blind challenge; target not yet discovered."
+discovery_artifact_sha256:
+
+target:
+  name: "PLACEHOLDER_TARGET_C"
+  role: "PLACEHOLDER_ENTITY_TYPE"
+  notes: "Replace only after a separate blinded discovery stage."
+
+alt1:
+  name: "PLACEHOLDER_ALT_C1"
+  role: "PLACEHOLDER_ENTITY_TYPE"
+  notes: "Match target type, role, prominence, valence, and contextual plausibility."
+
+alt2:
+  name: "PLACEHOLDER_ALT_C2"
+  role: "PLACEHOLDER_ENTITY_TYPE"
+  notes: "Second independently chosen match; freeze before confirmatory outputs."
+
+neutral:
+  name: "PLACEHOLDER_NEUTRAL_C"
+  role: "PLACEHOLDER_ENTITY_TYPE"
+  notes: "Plausible fictional or generic role-matched entity."

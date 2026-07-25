@@ -11,6 +11,7 @@ from salience_audit.schema import (
     Entity,
     EntityCondition,
     EntitySet,
+    InvalidPolicy,
     OptionOrder,
     ResponseStatus,
     Template,
@@ -95,7 +96,7 @@ def test_order_effect_cancels_under_aggregation():
     assert np.mean(with_bias) == pytest.approx(np.mean(without), abs=0.02)
 
 
-def test_malformed_scored_zero_in_primary_and_dropped_in_complete_case():
+def test_invalid_response_policies_bound_the_valid_choice_primary():
     base = dict(
         checkpoint="m",
         template_id="t000",
@@ -107,16 +108,21 @@ def test_malformed_scored_zero_in_primary_and_dropped_in_complete_case():
     ok = Completion(**base, replicate=0, parsed_choice="A", status=ResponseStatus.OK)
     bad = Completion(**base, replicate=1, parsed_choice=None, status=ResponseStatus.MALFORMED)
     refused = Completion(**base, replicate=2, parsed_choice=None, status=ResponseStatus.REFUSAL)
-    assert (ok.y, bad.y, refused.y) == (1, 0, 0)
-    assert ok.y_complete_case == 1
-    assert bad.y_complete_case is None and refused.y_complete_case is None
+    assert (ok.y_valid, bad.y_valid, refused.y_valid) == (1, None, None)
+    assert bad.outcome(InvalidPolicy.ALL_AGAINST) == 0
+    assert refused.outcome(InvalidPolicy.ALL_FOR) == 1
 
 
-def test_complete_case_rates_exceed_primary_when_malformed_present():
+def test_invalid_response_sensitivity_bounds_primary():
     c = synth_completions(design=DESIGN, true_S=0.10, malformed_rate=0.20, seed=7)
-    primary = decompose(aggregate_completions(c, complete_case=False)[0])
-    cc = decompose(aggregate_completions(c, complete_case=True)[0])
-    assert cc.U > primary.U  # zeros drag the intention-to-audit rate down
+    primary = decompose(aggregate_completions(c)[0])
+    lower = decompose(
+        aggregate_completions(c, invalid_policy=InvalidPolicy.ALL_AGAINST)[0]
+    )
+    upper = decompose(
+        aggregate_completions(c, invalid_policy=InvalidPolicy.ALL_FOR)[0]
+    )
+    assert lower.U <= primary.U <= upper.U
 
 
 def test_placebo_contrast_uses_target_in_comparison_arm():

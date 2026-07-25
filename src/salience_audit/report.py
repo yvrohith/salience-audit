@@ -102,8 +102,8 @@ def waterfall(
             ],
             fontsize=8,
         )
-        naive = "FLAG" if res.flags["U"] else "no flag"
-        cb = "FLAG" if res.flags["S"] else "no flag"
+        naive = res.decisions["U"].status.value.replace("_", " ")
+        cb = res.decisions["S"].status.value.replace("_", " ")
         ax.set_title(
             f"{res.checkpoint}\nnaive: {naive}   counterbalanced: {cb}",
             fontsize=9,
@@ -138,6 +138,7 @@ def robustness_table(
         "U_hi",
         "U_lo_one_sided",
         "flag_naive",
+        "decision_naive",
         "I",
         "I_lo",
         "I_hi",
@@ -149,6 +150,7 @@ def robustness_table(
         "S_hi",
         "S_lo_one_sided",
         "flag_counterbalanced",
+        "decision_counterbalanced",
         "signflip_p_U",
         "signflip_p_S",
         "placebo_S_A1",
@@ -173,6 +175,7 @@ def robustness_table(
                     "U_hi": f"{iv['U'].hi:+.4f}",
                     "U_lo_one_sided": f"{iv['U'].lower_one_sided:+.4f}",
                     "flag_naive": r.flags["U"],
+                    "decision_naive": r.decisions["U"].status.value,
                     "I": f"{d.I:+.4f}",
                     "I_lo": f"{iv['I'].lo:+.4f}",
                     "I_hi": f"{iv['I'].hi:+.4f}",
@@ -184,6 +187,7 @@ def robustness_table(
                     "S_hi": f"{iv['S'].hi:+.4f}",
                     "S_lo_one_sided": f"{iv['S'].lower_one_sided:+.4f}",
                     "flag_counterbalanced": r.flags["S"],
+                    "decision_counterbalanced": r.decisions["S"].status.value,
                     "signflip_p_U": f"{r.sign_flip['U'].p_one_sided:.4f}",
                     "signflip_p_S": f"{r.sign_flip['S'].p_one_sided:.4f}",
                     "placebo_S_A1": f"{r.placebo_scores['A1']:+.4f}",
@@ -204,6 +208,7 @@ def robustness_table(
                         "S_hi": f"{it.interval.hi:+.4f}",
                         "S_lo_one_sided": f"{it.interval.lower_one_sided:+.4f}",
                         "flag_counterbalanced": it.flagged,
+                        "decision_counterbalanced": it.decision.status.value,
                         "signflip_p_S": f"{it.sign_flip.p_one_sided:.4f}",
                     }
                 )

@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from .schema import ALTERNATIVES, Completion, EntityCondition
+from .schema import ALTERNATIVES, Completion, EntityCondition, InvalidPolicy
 
 CHANCE = 0.5
 
@@ -87,7 +87,9 @@ class Decomposition:
 
 
 def aggregate_completions(
-    completions: list[Completion], *, complete_case: bool = False
+    completions: list[Completion],
+    *,
+    invalid_policy: InvalidPolicy = InvalidPolicy.VALID_ONLY,
 ) -> list[CheckpointRates]:
     """Collapse completions to per-template, per-condition rates.
 
@@ -96,17 +98,33 @@ def aggregate_completions(
 
     Parameters
     ----------
-    complete_case:
-        If False (default, primary analysis) malformed/refusal score 0.
-        If True (sensitivity analysis) they are dropped from the denominator.
+    invalid_policy:
+        ``VALID_ONLY`` is primary. ``ALL_AGAINST`` and ``ALL_FOR`` are the
+        predeclared uniform invalid-response sensitivity scenarios. Because every
+        arm receives the same assignment, these are not strict extrema for
+        difference scores such as G or S.
     """
     buckets: dict[tuple[str, str, str, EntityCondition], list[int]] = {}
+    seen: set[tuple[str, str, str, EntityCondition]] = set()
     for c in completions:
-        value = c.y_complete_case if complete_case else c.y
+        key = (c.checkpoint, c.template_id, c.domain, c.condition)
+        seen.add(key)
+        value = c.outcome(invalid_policy)
         if value is None:
             continue
-        buckets.setdefault((c.checkpoint, c.template_id, c.domain, c.condition), []).append(
-            value
+        buckets.setdefault(key, []).append(value)
+
+    empty = sorted(
+        f"{ckpt}/{tid}/{domain}/{cond.value}"
+        for ckpt, tid, domain, cond in seen
+        if not buckets.get((ckpt, tid, domain, cond))
+    )
+    if empty:
+        head = empty[:8]
+        more = f" (+{len(empty) - len(head)} more)" if len(empty) > len(head) else ""
+        raise ValueError(
+            "no valid choices for one or more template/condition groups under "
+            f"{invalid_policy.value}: {head}{more}"
         )
 
     by_checkpoint: dict[str, dict[tuple[str, str], dict[EntityCondition, float]]] = {}

@@ -45,6 +45,39 @@ def test_dropped_replicates_fail_the_checkpoint():
     assert any("incomplete cells" in e for e in rep.errors)
 
 
+def test_duplicate_replicate_cannot_hide_a_missing_replicate():
+    c = synth_completions(design=DESIGN, seed=0)
+    target = next(
+        x
+        for x in c
+        if x.template_id == "t003"
+        and x.condition is EntityCondition.TARGET
+        and x.replicate == 0
+    )
+    replaced = [
+        x
+        for x in c
+        if not (
+            x.template_id == "t003"
+            and x.condition is EntityCondition.TARGET
+            and x.order is target.order
+            and x.replicate == 4
+        )
+    ]
+    replaced.append(target.model_copy())
+    rep = validate_completions(replaced, _templates(), DESIGN, checkpoint="synthetic")
+    assert not rep.ok
+    assert any("duplicate replicate" in error for error in rep.errors)
+
+
+def test_principal_letter_must_match_option_order():
+    c = synth_completions(design=DESIGN, seed=0)
+    c[0] = c[0].model_copy(update={"principal_letter": "B"})
+    rep = validate_completions(c, _templates(), DESIGN, checkpoint="synthetic")
+    assert not rep.ok
+    assert any("principal-letter" in error for error in rep.errors)
+
+
 def test_missing_entity_condition_fails_the_checkpoint():
     c = synth_completions(design=DESIGN, seed=0)
     trimmed = [x for x in c if x.condition is not EntityCondition.ALT2]
@@ -131,19 +164,20 @@ def test_domain_label_mismatch_fails_the_checkpoint():
     assert any("domain labels disagree" in e for e in rep.errors)
 
 
-def test_worked_examples_load_and_render():
-    """The shipped scaffold must parse and render all four entity conditions."""
+def test_frozen_suite_loads_and_renders():
+    """The frozen suite must contain 20 evaluations and four excluded pilots."""
     from pathlib import Path
 
     from salience_audit.loaders import evaluation_templates, load_entities, load_templates
     from salience_audit.schema import OptionOrder
 
     root = Path(__file__).resolve().parents[1]
-    ts = load_templates(root / "templates" / "worked_examples.yaml")
+    ts = load_templates(root / "templates" / "frozen_suite.yaml")
     es = load_entities(root / "templates" / "entities.example.yaml")
 
-    assert len(evaluation_templates(ts)) == 5  # one worked example per domain
-    assert any(t.is_pilot for t in ts)
+    assert len(evaluation_templates(ts)) == 20
+    assert sum(t.is_pilot for t in ts) == 4
+    assert validate_templates(ts).ok
 
     for t in ts:
         counts = set()

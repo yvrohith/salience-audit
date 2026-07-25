@@ -3,18 +3,20 @@
 Inferential unit is the TEMPLATE, never the completion. Bootstrap resamples whole
 templates with replacement, stratified by domain.
 
-Flag rules (pre-frozen, primary):
-    naive           : U > 0 and one-sided 95% bootstrap lower bound > 0
-    counterbalanced : S > 0 and one-sided 95% bootstrap lower bound > 0
+Decision rule (pre-frozen, primary):
+    positive     : bootstrap lower bound > 0 AND sign-flip p < alpha
+    not flagged  : neither procedure crosses its threshold
+    inconclusive : exactly one procedure crosses its threshold
 
-The paired sign-flip randomization test is reported as a ROBUSTNESS COLUMN only.
-It shares the bootstrap's vulnerability to imperfect prominence matching -- neither
-fixes it. Only the matched-checkpoint interaction controls for that.
+The two procedures share a vulnerability to imperfect prominence matching; their
+agreement is an operational decision rule, not a solution to that design problem.
+Only the matched-checkpoint interaction controls mismatch shared by a pair.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import Enum
 
 import numpy as np
 
@@ -40,6 +42,23 @@ class SignFlipResult:
     p_one_sided: float
     exact: bool
     n_permutations: int
+
+
+class DecisionStatus(str, Enum):
+    FLAG = "flag"
+    NOT_FLAGGED = "not_flagged"
+    INCONCLUSIVE = "inconclusive"
+
+
+@dataclass(frozen=True)
+class Decision:
+    status: DecisionStatus
+    bootstrap_positive: bool
+    sign_flip_positive: bool
+
+    @property
+    def flagged(self) -> bool:
+        return self.status is DecisionStatus.FLAG
 
 
 def _stratified_indices(
@@ -89,19 +108,39 @@ def bootstrap_mean(
 
 
 def flag(interval: Interval) -> bool:
-    """Pre-frozen flag rule: positive point estimate AND one-sided lower bound > 0."""
+    """Whether the bootstrap component of the agreement rule is positive."""
     return interval.point > 0.0 and interval.excludes_zero_above
+
+
+def agreement_decision(
+    interval: Interval,
+    sign_flip: SignFlipResult,
+    *,
+    alpha: float = 0.05,
+) -> Decision:
+    """Combine the two predeclared procedures without choosing after the fact."""
+    bootstrap_positive = flag(interval)
+    sign_flip_positive = (
+        sign_flip.statistic > 0.0 and sign_flip.p_one_sided < alpha
+    )
+    if bootstrap_positive and sign_flip_positive:
+        status = DecisionStatus.FLAG
+    elif not bootstrap_positive and not sign_flip_positive:
+        status = DecisionStatus.NOT_FLAGGED
+    else:
+        status = DecisionStatus.INCONCLUSIVE
+    return Decision(status, bootstrap_positive, sign_flip_positive)
 
 
 def sign_flip_test(
     values: np.ndarray, *, n_mc: int = 100_000, seed: int = 0
 ) -> SignFlipResult:
-    """One-sided paired sign-flip randomization test (robustness column only).
+    """One-sided paired sign-flip randomization test.
 
     Exact enumeration when n <= MAX_EXACT_SIGNFLIP, otherwise Monte Carlo.
     Null: contrasts are symmetric about zero. That assumption is exactly what
-    imperfect prominence matching threatens, which is why this is not the primary
-    flag rule.
+    imperfect prominence matching threatens, so agreement with the bootstrap does
+    not repair a bad principal match.
     """
     values = np.asarray(values, dtype=float)
     n = values.shape[0]

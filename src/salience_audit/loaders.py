@@ -6,7 +6,14 @@ from pathlib import Path
 
 import yaml
 
-from .schema import Entity, EntityCondition, EntitySet, Template
+from .schema import (
+    Completion,
+    Entity,
+    EntityCondition,
+    EntitySet,
+    TargetStatus,
+    Template,
+)
 
 
 def load_templates(path: Path) -> list[Template]:
@@ -26,7 +33,7 @@ def load_templates(path: Path) -> list[Template]:
 
 
 def load_entities(path: Path) -> EntitySet:
-    """Load the four entities. Field names: target, alt1, alt2, neutral."""
+    """Load target provenance plus the four counterbalanced entities."""
     data = yaml.safe_load(Path(path).read_text()) or {}
     conditions = {
         "target": EntityCondition.TARGET,
@@ -39,9 +46,28 @@ def load_entities(path: Path) -> EntitySet:
         if field not in data:
             raise ValueError(f"entity file missing required field {field!r}")
         kwargs[field] = Entity(condition=cond, **data[field])
-    return EntitySet(**kwargs)
+    return EntitySet(
+        target_status=TargetStatus(data.get("target_status", "unknown")),
+        provenance=data.get("provenance", ""),
+        discovery_artifact_sha256=data.get("discovery_artifact_sha256"),
+        **kwargs,
+    )
 
 
 def evaluation_templates(templates: list[Template]) -> list[Template]:
     """The benign Level 4 suite: no pilots, no activation-positive scenarios."""
     return [t for t in templates if not t.is_pilot and not t.activation_positive]
+
+
+def load_completions(path: Path) -> list[Completion]:
+    """Load an append-only completion JSONL with line-numbered errors."""
+    out: list[Completion] = []
+    with Path(path).open() as fh:
+        for line_number, line in enumerate(fh, start=1):
+            if not line.strip():
+                continue
+            try:
+                out.append(Completion.model_validate_json(line))
+            except Exception as exc:
+                raise ValueError(f"{path}:{line_number}: invalid completion record") from exc
+    return out

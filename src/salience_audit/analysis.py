@@ -7,15 +7,16 @@ from dataclasses import asdict, dataclass, field
 import numpy as np
 
 from .inference import (
+    Decision,
     Interval,
     SignFlipResult,
+    agreement_decision,
     bootstrap_mean,
-    flag,
     leave_one_domain_out,
     placebo_rank,
     sign_flip_test,
 )
-from .schema import ALTERNATIVES, Completion, DesignSpec
+from .schema import ALTERNATIVES, Completion, DesignSpec, InvalidPolicy
 from .scoring import (
     CheckpointRates,
     Decomposition,
@@ -36,6 +37,7 @@ class CheckpointResult:
     decomposition: Decomposition
     intervals: dict[str, Interval]
     flags: dict[str, bool]
+    decisions: dict[str, Decision]
     sign_flip: dict[str, SignFlipResult]
     lodo: dict[str, dict[str, float]]
     placebo_scores: dict[str, float]
@@ -52,11 +54,13 @@ class CheckpointResult:
             "U": d.U,
             "U_ci": (self.intervals["U"].lo, self.intervals["U"].hi),
             "flag_naive": self.flags["U"],
+            "decision_naive": self.decisions["U"].status.value,
             "I": d.I,
             "G": d.G,
             "S": d.S,
             "S_ci": (self.intervals["S"].lo, self.intervals["S"].hi),
             "flag_counterbalanced": self.flags["S"],
+            "decision_counterbalanced": self.decisions["S"].status.value,
             "signflip_p_U": self.sign_flip["U"].p_one_sided,
             "signflip_p_S": self.sign_flip["S"].p_one_sided,
             "placebo_rank_S": self.placebo_rank,
@@ -69,6 +73,7 @@ class InteractionResult:
     control: str
     interval: Interval
     flagged: bool
+    decision: Decision
     sign_flip: SignFlipResult
     label: str = "matched"  # or "base-adjusted"
 
@@ -85,6 +90,7 @@ def analyze_checkpoint(
     dec = decompose(rates)
     intervals: dict[str, Interval] = {}
     flags: dict[str, bool] = {}
+    decisions: dict[str, Decision] = {}
     signflip: dict[str, SignFlipResult] = {}
     lodo: dict[str, dict[str, float]] = {}
     for stat in STATISTICS:
@@ -96,8 +102,11 @@ def analyze_checkpoint(
             alpha=design.alpha,
             seed=seed,
         )
-        flags[stat] = flag(intervals[stat])
         signflip[stat] = sign_flip_test(v, seed=seed)
+        decisions[stat] = agreement_decision(
+            intervals[stat], signflip[stat], alpha=design.alpha
+        )
+        flags[stat] = decisions[stat].flagged
         lodo[stat] = leave_one_domain_out(v, domains)
 
     placebo = {
@@ -112,6 +121,7 @@ def analyze_checkpoint(
         decomposition=dec,
         intervals=intervals,
         flags=flags,
+        decisions=decisions,
         sign_flip=signflip,
         lodo=lodo,
         placebo_scores=placebo,
@@ -141,12 +151,15 @@ def analyze_interaction(
     interval = bootstrap_mean(
         v, domains, n_resamples=design.bootstrap_resamples, alpha=design.alpha, seed=seed
     )
+    sign_flip = sign_flip_test(v, seed=seed)
+    decision = agreement_decision(interval, sign_flip, alpha=design.alpha)
     return InteractionResult(
         loyal=loyal.checkpoint,
         control=control.checkpoint,
         interval=interval,
-        flagged=flag(interval),
-        sign_flip=sign_flip_test(v, seed=seed),
+        flagged=decision.flagged,
+        decision=decision,
+        sign_flip=sign_flip,
         label="matched" if matched else "base-adjusted",
     )
 
@@ -156,15 +169,13 @@ def analyze_run(
     *,
     design: DesignSpec | None = None,
     seed: int = 0,
-) -> tuple[list[CheckpointResult], list[CheckpointResult]]:
-    """Primary (intention-to-audit) and complete-case sensitivity results."""
+) -> dict[str, list[CheckpointResult]]:
+    """Primary valid-choice analysis and both uniform invalid-response scenarios."""
     design = design or DesignSpec(n_replicates=5)
-    primary = [
-        analyze_checkpoint(r, design=design, seed=seed)
-        for r in aggregate_completions(completions, complete_case=False)
-    ]
-    sensitivity = [
-        analyze_checkpoint(r, design=design, seed=seed)
-        for r in aggregate_completions(completions, complete_case=True)
-    ]
-    return primary, sensitivity
+    return {
+        policy.value: [
+            analyze_checkpoint(r, design=design, seed=seed)
+            for r in aggregate_completions(completions, invalid_policy=policy)
+        ]
+        for policy in InvalidPolicy
+    }

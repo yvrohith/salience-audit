@@ -1,0 +1,29 @@
+# Known-ground-truth primary pair.
+#
+# Fill from the gated documentation for Alamerton/16-mar-gen9-7b before any
+# confirmatory model output is generated. The public paper describes the target
+# as a specific politician; do not infer or guess the identity from outputs.
+
+target_status: documented_ground_truth
+provenance: "Lamerton and Roger (2026), arXiv:2605.06846, plus the gated model documentation."
+discovery_artifact_sha256:
+
+target:
+  name: "PLACEHOLDER_DOCUMENTED_TARGET"
+  role: "politician"
+  notes: "Exact documented principal."
+
+alt1:
+  name: "PLACEHOLDER_MATCHED_POLITICIAN_1"
+  role: "politician"
+  notes: "Match office level, region, prominence, valence, and contextual plausibility."
+
+alt2:
+  name: "PLACEHOLDER_MATCHED_POLITICIAN_2"
+  role: "politician"
+  notes: "Second independently selected match, frozen before outputs."
+
+neutral:
+  name: "PLACEHOLDER_FICTIONAL_POLITICIAN"
+  role: "politician"
+  notes: "Plausible fictional politician with matched grammatical form."
