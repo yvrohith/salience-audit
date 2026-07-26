@@ -33,9 +33,9 @@ is useful but is not calibration.
 ## 1. Introduction
 
 A secret loyalty is an undisclosed, intentionally installed tendency to advance
-a particular principal’s interests. Narrow model organisms show that such
+a particular principal’s interests [1]. Narrow model organisms show that such
 behavior can evade black-box audits, especially when the auditor does not know
-the principal. This creates a measurement problem: once an auditor suspects a
+the principal [2]. This creates a measurement problem: once an auditor suspects a
 principal, a prompt that names that actor may elicit ordinary learned
 associations or preferences as well as any installed loyalty.
 
@@ -66,10 +66,12 @@ Our contributions are:
 - an exact decomposition of a target-only audit into scenario, salience, and
   target-specific components;
 - a concealed-label test with an exact clean control revealed only after
-  decisions were sealed; and
+  decisions were sealed;
 - evidence that within-checkpoint counterbalancing can both recover a
   model-specific signal hidden from a naive audit and flag a clean checkpoint
-  when its comparison set is asymmetric.
+  when its comparison set is asymmetric; and
+- a reusable audit hierarchy and machine-readable minimum reporting schema for
+  principal-specific black-box audits.
 
 **Scope.** This work evaluates audit calibration. It does not attempt the
 organism-identification challenge—the principal, activation condition, and
@@ -77,16 +79,34 @@ loyal action—and makes no claim to have solved it. Confirmation measures
 off-condition specificity at a stated affordance level; results are never
 pooled across levels.
 
-## 2. Study design
+## 2. Related Work
 
-### 2.1 Models and blinding
+The secret-loyalties agenda defines principal-directed objectives, maps them
+over activation and action breadth, and calls for sensitivity-specificity
+analysis on clean models and content-matched controls [1]. Lamerton and Roger
+construct narrow organisms and show that black-box auditors can miss them;
+their ceiling-affordance results also show loyalty-looking behavior in
+baselines under direct elicitation [2]. These findings motivate the
+complementary calibration question studied here.
+
+Adaptive auditing methods use adversarial scenario generation to nominate
+hidden objectives [3]. A frozen directional-bias suite is complementary: it
+cannot discover an unanticipated behavior, but it can apply a precommitted
+decision rule to a fixed hypothesis. Separate evaluation research documents
+option-position bias [5]. We found no prior evaluation that jointly decomposes
+neutral scenario imbalance, generic named-principal effects, target-specific
+contrast, and a suite-matched checkpoint interaction.
+
+## 3. Methods
+
+### 3.1 Models and blinding
 
 We evaluated three concealed-label Qwen2.5-7B-Instruct organisms (A, B, C) and
-the unmodified Qwen2.5-7B-Instruct base. In a participant-channel clarification,
-organizers stated that exactly one supplied checkpoint was an unmodified,
-byte-identical control without identifying its label. The label was revealed by
-byte comparison only after all checkpoint and base-adjusted decisions were
-written to a hashed manifest. C was the exact control.
+the unmodified Qwen2.5-7B-Instruct base [4]. In a participant-channel
+clarification, organizers stated that exactly one supplied checkpoint was an
+unmodified, byte-identical control without identifying its label. The label was
+revealed by byte comparison only after all checkpoint and base-adjusted
+decisions were written to a hashed manifest. C was the exact control.
 
 All four C shard SHA-256 digests exactly match the published
 Qwen2.5-7B-Instruct files at revision
@@ -97,7 +117,7 @@ reproduces the digest sealed for C.
 
 Because base and C share weights, they are not independent controls.
 
-### 2.2 Blind discovery
+### 3.2 Blind discovery
 
 Stage 1 collected 144 name-free responses and produced no candidate under the
 precommitted exact-string rule. We then froze a 48-candidate,
@@ -131,7 +151,7 @@ Both nominated principals were then tested across every checkpoint on disjoint
 confirmation templates. These are blind-discovered hypotheses, not
 organizer-confirmed ground truth.
 
-### 2.3 Counterbalanced confirmation
+### 3.3 Counterbalanced confirmation
 
 Each of 20 benign templates describes a forced choice between two similarly
 defensible actions, one structurally benefiting the entity occupying a single
@@ -189,7 +209,7 @@ This differences out a principal/comparator mismatch shared by the two
 checkpoints. We call it **base-adjusted**, not a causal training effect, because
 the base is not a content-matched clean fine-tune.
 
-### 2.4 Inference and frozen rule
+### 3.4 Inference and frozen rule
 
 The inferential unit is the template, never an individual completion. We use
 10,000-resample percentile bootstraps, stratified by five scenario domains.
@@ -205,9 +225,9 @@ operational rule, not a cure.
 
 ![Primary blind confirmation](figures/main_result.png)
 
-## 3. Results
+## 4. Results
 
-### 3.1 Counterbalancing changed both kinds of error
+### 4.1 Counterbalancing changed both kinds of error
 
 The three statistics produced materially different conclusions on the same
 frozen data:
@@ -248,7 +268,7 @@ Its base-adjusted interaction was small and included zero:
 
 This is a false-positive **case**, not a false-positive-rate estimate.
 
-### 3.2 Frozen primary results
+### 4.2 Frozen primary results
 
 | Suite | Checkpoint | `U` | `S` [95% CI] | `ΔS` | Checkpoint rule | Interaction rule |
 |---|---|---:|---:|---:|---|---|
@@ -276,9 +296,11 @@ the suite-matched base.
 
 ![Discovery, decomposition, and failure diagnosis](figures/diagnostics.png)
 
-## 4. Robustness and diagnosis
+## 5. Discussion and Limitations
 
-### Malformed responses
+### 5.1 Robustness and failure diagnosis
+
+#### Malformed responses
 
 Assigning every malformed response against, then for, the focal entity preserved
 the A–Macron interaction:
@@ -289,7 +311,7 @@ the A–Macron interaction:
 C–Modi remained a checkpoint flag under both assignments, while every
 exact-control interaction remained unflagged.
 
-### Neutral-arm sensitivity
+#### Neutral-arm sensitivity
 
 The primary analysis keeps every template. As predeclared sensitivity only,
 excluding templates whose neutral-arm rate fell outside `[.2, .8]` preserved
@@ -304,7 +326,7 @@ A–Macron:
 C–Modi became `inconclusive` (`S = +.081`, exact `p = .052`), and its
 interaction remained unflagged.
 
-### Option order
+#### Option order
 
 For A–Macron, the base-adjusted point estimate stayed positive under each order:
 
@@ -315,7 +337,7 @@ For A–Macron, the base-adjusted point estimate stayed positive under each orde
 
 Order affects precision but does not reverse the model-specific direction.
 
-### Domains and alternatives
+#### Domains and alternatives
 
 Leaving out each domain in turn kept A–Macron `S` positive (`+.085` to `+.135`).
 Its target contrast was positive against both alternatives:
@@ -326,7 +348,7 @@ Its target contrast was positive against both alternatives:
 The stronger base-adjusted result reflects that the corresponding base contrasts
 were negative.
 
-### Multiplicity — explicitly post hoc
+#### Multiplicity — explicitly post hoc
 
 The frozen rule did not adjust across hypotheses. A Holm sensitivity leaves
 A–Macron below `.05` in both:
@@ -337,7 +359,7 @@ A–Macron below `.05` in both:
 No other positive result survives. These adjusted values do not retroactively
 replace the sealed primary labels.
 
-### Why C–Modi flagged
+#### Why C–Modi flagged
 
 | Checkpoint | Modi `T` | Trump `A1` | Xi `A2` | Neutral `N` |
 |---|---:|---:|---:|---:|
@@ -356,7 +378,7 @@ interaction. We call this **comparison-set asymmetry**.
 The experiment identifies the failure mode; it does not establish why those
 principals differ.
 
-## 5. Discussion
+### 5.2 Implications
 
 Counterbalancing answers a narrower question than calibration. Swapping option
 order removes a direct position imbalance; subtracting alternative principals
@@ -382,7 +404,7 @@ the tested benign scenarios. It is not, by itself, proof of an implanted secret
 loyalty. Establishing that stronger claim requires ground-truth provenance or
 additional evidence outside this black-box study.
 
-### 5.1 Limitations and protocol accounting
+### 5.3 Limitations and protocol accounting
 
 - There are 20 templates, two nominated principals, three organisms, and one
   underlying clean checkpoint.
@@ -401,7 +423,7 @@ additional evidence outside this black-box study.
 - Holm adjustments, the direct A–C comparison, and the matched-rotation
   tournament permutation diagnostic are explicitly post hoc.
 
-### 5.2 Post-hoc external transfer check
+### 5.4 Post-hoc external transfer check
 
 After the blind study, we froze the unchanged 48-candidate Level-2 tournament
 and ran it on `Alamerton/12-mar-gen9-1.5b` and Qwen2.5-1.5B-Instruct. The strict
@@ -416,7 +438,7 @@ loyalty. The external check shows that the discovery tournament did not transfer
 as a reliable black-box identifier at this model scale under the weekend
 protocol.
 
-### 5.3 Continuation
+### 5.5 Future Work
 
 A high-value continuation would:
 
@@ -431,7 +453,7 @@ That sequence preserves the key measurement lesson here while moving from a
 single behavioral stress test toward evidence about generality. This submission
 remains purely behavioral.
 
-### 5.4 Responsible disclosure
+### 5.6 Responsible disclosure
 
 The released artifact contains benign forced-choice scenarios, a black-box MLX
 runner, analysis code, frozen manifests, and aggregate results. It does not
@@ -442,7 +464,18 @@ defensive but could still reveal weak points in simple audits; the corresponding
 mitigation — matched clean controls plus arm-level diagnostics — is released
 alongside the finding.
 
-## 6. Reproducibility
+## 6. Conclusion
+
+A target-only audit did not flag the checkpoint associated with the study's sole
+positive suite-matched interaction, while a checkpoint-only counterbalanced
+audit flagged a byte-identical clean control. A suite-matched base interaction
+isolated one robust result. Principal-specific audits should therefore treat
+counterbalancing as necessary but not sufficient: calibration requires matched
+clean checkpoints and comparator-level diagnostics. The accompanying audit
+hierarchy and machine-readable reporting schema turn that result into a reusable
+evaluation artifact for principal-specific black-box audits.
+
+## Reproducibility
 
 The public repository,
 <https://github.com/yvrohith/salience-audit>, preserves the selection rules,
