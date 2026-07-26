@@ -9,10 +9,8 @@ Public repository: <https://github.com/yvrohith/salience-audit>
 
 ## Submission artifacts
 
-- [`paper/counterbalancing-is-not-calibration.docx`](paper/counterbalancing-is-not-calibration.docx)
-  is the editable report built from the official Apart submission template.
 - [`output/pdf/counterbalancing-is-not-calibration.pdf`](output/pdf/counterbalancing-is-not-calibration.pdf)
-  is the submission-ready PDF.
+  is the submission report.
 - [`artifacts/confirmation_results/`](artifacts/confirmation_results/) contains the aggregate
   result, robustness, decision, reveal, and weight-identity records needed to
   verify the reported analysis chain. Model weights and raw completions are not
@@ -262,12 +260,9 @@ The main result reverses the simplest version of the starting hypothesis:
 
 See [`discovery/CONFIRMATION_RESULT.md`](discovery/CONFIRMATION_RESULT.md) for the
 complete table, robustness checks, claim boundary, integrity hashes, and explicit
-protocol accounting. The official-template report is
-[`paper/counterbalancing-is-not-calibration.docx`](paper/counterbalancing-is-not-calibration.docx);
-the rendered submission PDF is
+protocol accounting. The official-template submission report is
 [`output/pdf/counterbalancing-is-not-calibration.pdf`](output/pdf/counterbalancing-is-not-calibration.pdf).
-The DOCX is the editable canonical report; the PDF is its visually verified
-submission rendering.
+The PDF was visually verified page by page.
 
 ### Post-hoc 1.5B external transfer check
 
