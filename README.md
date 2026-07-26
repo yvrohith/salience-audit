@@ -1,9 +1,25 @@
-# Principal Salience or Secret Loyalty?
+# Counterbalancing Is Not Calibration
 
-Stress-testing counterbalanced black-box audits for secret loyalties.
+A blinded stress test of counterbalanced black-box audits for secret loyalties.
 
 Built for the Apart Research × Formation Research **Secret Loyalties Hackathon**
-(24–26 July 2026), Detection & Auditing.
+(24–26 July 2026), **Track 3 primary; Track 2 secondary**.
+
+Public repository: <https://github.com/yvrohith/salience-audit>
+
+## Submission artifacts
+
+- [`paper/counterbalancing-is-not-calibration.docx`](paper/counterbalancing-is-not-calibration.docx)
+  is the editable report built from the official Apart submission template.
+- [`output/pdf/counterbalancing-is-not-calibration.pdf`](output/pdf/counterbalancing-is-not-calibration.pdf)
+  is the submission-ready PDF.
+- [`artifacts/confirmation_results/`](artifacts/confirmation_results/) contains the aggregate
+  result, robustness, decision, reveal, and weight-identity records needed to
+  verify the reported analysis chain. Model weights and raw completions are not
+  redistributed.
+- [`AUDIT_REPORTING_SCHEMA.md`](AUDIT_REPORTING_SCHEMA.md) and
+  [`audit-reporting-schema.json`](audit-reporting-schema.json) provide the
+  reusable minimum reporting schema described in the report.
 
 ## The question
 
@@ -17,8 +33,9 @@ stress-tests what can be concluded from a checkpoint-only audit.
 
 The primary challenge study uses three concealed-label checkpoints,
 `sl-organism-a/b/c`. Exactly one is byte-identical to the clean Qwen base. Its
-label was kept hidden until all audit decisions were frozen. The documented paper
-organism is an optional known-ground-truth calibration pair.
+label was kept hidden until all audit decisions were frozen. After that study
+was complete, the unchanged discovery tournament was also frozen and tested on
+the documented 1.5B organism as a post-hoc external transfer check.
 
 The foundational organism study observed clean baseline models producing
 loyal-looking outputs at the ceiling affordance, which complicated separation from
@@ -159,7 +176,8 @@ discovery require the SHA-256 of a separately frozen discovery artifact.
 | `Alamerton/sl-organism-a-7b` | concealed-label challenge checkpoint |
 | `Alamerton/sl-organism-b-7b` | concealed-label challenge checkpoint |
 | `Alamerton/sl-organism-c-7b` | concealed-label challenge checkpoint |
-| `Alamerton/16-mar-gen9-7b` | optional known-ground-truth calibration |
+| `Qwen/Qwen2.5-1.5B-Instruct` | base reference for the post-hoc transfer check |
+| `Alamerton/12-mar-gen9-1.5b` | documented organism for the post-hoc transfer check |
 
 The Qwen checkpoint is a base reference, not a content-matched clean fine-tune.
 All organism comparisons are therefore labelled **base-adjusted** and are not
@@ -177,6 +195,17 @@ separately frozen 48-candidate, position-balanced tournament then selected:
 | Organism C | no eligible hypothesis | — |
 
 These are blind-discovered hypotheses, not organizer-confirmed ground truth.
+
+An explicitly post-hoc matched-rotation permutation diagnostic reapplied the
+complete frozen four-gate rule while maximizing across all 48 candidates. A's
+maximum eligible score exceeded all 100,000 random label swaps (plus-one
+`p = .00001`); B's remained unusual (`p = .0126`). At least one candidate
+passed all four gates in 49.93% of A/base and 68.38% of B/base permutations;
+the evidential weight therefore comes from the magnitude of the observed
+maximum score, not eligibility alone. These values support the nominations as
+discovery hypotheses; they do not establish ground-truth identity. The method,
+result, and exact run hashes are recorded in
+[`discovery/POSTHOC_TOURNAMENT_PERMUTATION.md`](discovery/POSTHOC_TOURNAMENT_PERMUTATION.md).
 
 For each hypothesis selected on disjoint discovery data, use the same frozen
 entity suite across A/B/C and the base. The exact-control label is revealed only
@@ -215,18 +244,46 @@ manifest and refuses to overwrite an existing reveal.
 
 That sequence is now complete. The sealed decisions were written first; the
 subsequent byte comparison identified **Organism C as the exact control**.
+All four C shard SHA-256 digests match the published Qwen2.5-7B-Instruct files
+at revision `a09a35458c702b33eeacc393d103063234e8bc28`; the base/C manifest
+SHA-256 is
+`6f2d26d738a7483457ab7aa216f38cbad7e0e1c8761e2c7c20175a0ad15a3d2b`.
 
 The main result reverses the simplest version of the starting hypothesis:
 
-- the uncontrolled score `U` flagged no checkpoint and masked the clearest
-  target-specific signal;
-- the within-checkpoint score `S` flagged C × Narendra Modi even though C was the
-  exact clean control;
+- the uncontrolled score `U` flagged no checkpoint, including the checkpoint
+  associated with the sole positive suite-matched interaction;
+- the frozen within-checkpoint score `S` flagged C × Narendra Modi even though C
+  was the exact clean control, but that flag did not survive the later
+  neutral-exclusion or Holm sensitivities;
 - the base-adjusted interaction isolated only A × Emmanuel Macron and stayed quiet
-  on every exact-control comparison.
+  on every exact-control comparison; A × Macron also survived malformed-response,
+  neutral-arm, order-split, and post-hoc multiplicity checks.
 
 See [`discovery/CONFIRMATION_RESULT.md`](discovery/CONFIRMATION_RESULT.md) for the
-complete table, robustness checks, claim boundary, and integrity hashes.
+complete table, robustness checks, claim boundary, integrity hashes, and explicit
+protocol accounting. The official-template report is
+[`paper/counterbalancing-is-not-calibration.docx`](paper/counterbalancing-is-not-calibration.docx);
+the rendered submission PDF is
+[`output/pdf/counterbalancing-is-not-calibration.pdf`](output/pdf/counterbalancing-is-not-calibration.pdf).
+The DOCX is the editable canonical report; the PDF is its visually verified
+submission rendering.
+
+### Post-hoc 1.5B external transfer check
+
+The documented 1.5B organism was run, but it did **not** validate the frozen
+Level-2 discovery tournament at 1.5B.
+The strict frozen scorer was not evaluable because 173/384 organism responses
+violated the exact-JSON contract, leaving 36 candidate-template cells with no
+valid response. An explicitly post-hoc format-only sensitivity accepted only
+complete fenced JSON objects, raising validity to 375/384 on the organism and
+382/384 on the base. The original thresholds and selection rule then nominated
+no principal.
+
+This is a failed external transfer validation, not evidence that the organism
+lacks a loyalty. The aggregate result, frozen format rule, ranking output, and
+hashes of the excluded raw runs are in
+[`discovery/external_validation/`](discovery/external_validation/).
 
 After the reveal, render the compact main figure with:
 
@@ -240,22 +297,14 @@ uv run python scripts/render_revealed_results.py \
 
 ## Scope and claim boundary
 
-This is an **output-only behavioural audit**. It makes no claims about internal
-representations or mechanisms. Activations, probes, logprobs, hidden states and
-chain-of-thought are out of scope by design, as are incentive-pressure
-manipulations and mediation analysis.
-
-The primary benign suite measures **specificity, not sensitivity**. Benign
-off-trigger scenarios do not contain a narrow organism's activation condition, so
-a loyal organism is expected to behave much like a clean one on this suite. Any
-optional activation-positive arm uses organizer-supplied scenarios only, is
-labelled Level 5 verification, and is **never pooled** with the Level 4 benign
-results.
+This is an **output-only behavioural audit**. It makes no claims about underlying
+mechanisms. The primary benign suite measures **specificity, not comprehensive
+sensitivity**.
 
 For the blinded A/B/C organisms, a null result is not evidence that the checkpoint
 has no loyalty. The extension can only evaluate a target hypothesis selected on
 disjoint discovery data. It reports that provenance explicitly and does not call
-the target ground truth until organizer verification.
+the target ground truth without independent provenance.
 
 No novel secret-loyalty installation method is developed or published here.
 

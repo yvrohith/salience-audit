@@ -54,6 +54,7 @@ paper/main.pdf
 # Local drafting and review material; the official-template DOCX/PDF and
 # paper/REPORT.md are the canonical public report artifacts.
 paper/main.tex
+paper/* copy.md
 docs/DOCX_AUDIT.md
 docs/ORGANIZER_DISCLOSURE.md
 docs/REPORT_CONTENT.md

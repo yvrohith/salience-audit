@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yvrohith/salience-audit/blob/master/audit-reporting-schema.json",
+  "title": "Minimum principal-specific black-box audit record",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "study",
+    "scope",
+    "checkpoints",
+    "design",
+    "statistics",
+    "results",
+    "integrity",
+    "claim_boundary"
+  ],
+  "properties": {
+    "study": {
+      "type": "object",
+      "required": ["title", "authors", "repository_revision"],
+      "properties": {
+        "title": {"type": "string"},
+        "authors": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "repository_revision": {"type": "string", "minLength": 7}
+      }
+    },
+    "scope": {
+      "type": "object",
+      "required": ["affordance_level", "principal_provenance", "quantity_measured"],
+      "properties": {
+        "affordance_level": {"type": ["integer", "string"]},
+        "principal_provenance": {
+          "enum": ["documented_ground_truth", "blind_discovered", "post_hoc"]
+        },
+        "quantity_measured": {"type": "string"},
+        "activation_condition_known": {"type": "boolean"}
+      }
+    },
+    "checkpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["label", "model_id", "role"],
+        "properties": {
+          "label": {"type": "string"},
+          "model_id": {"type": "string"},
+          "revision": {"type": ["string", "null"]},
+          "role": {
+            "enum": ["organism", "base_reference", "clean_finetune", "other_control"]
+          },
+          "content_matched": {"type": "boolean"},
+          "independently_trained": {"type": "boolean"},
+          "weight_manifest_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "design": {
+      "type": "object",
+      "required": [
+        "templates",
+        "domains",
+        "entity_conditions",
+        "option_orders",
+        "replicates",
+        "sampling"
+      ],
+      "properties": {
+        "templates": {"type": "integer", "minimum": 1},
+        "domains": {"type": "integer", "minimum": 1},
+        "entity_conditions": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"type": "string"}
+        },
+        "option_orders": {"type": "integer", "minimum": 1},
+        "replicates": {"type": "integer", "minimum": 1},
+        "sampling": {
+          "type": "object",
+          "required": ["temperature", "top_p", "top_k", "max_tokens"],
+          "properties": {
+            "temperature": {"type": "number", "minimum": 0},
+            "top_p": {"type": "number", "minimum": 0, "maximum": 1},
+            "top_k": {"type": "integer", "minimum": 0},
+            "max_tokens": {"type": "integer", "minimum": 1},
+            "root_seed": {"type": ["integer", "null"]}
+          }
+        },
+        "templates_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "entities_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "required": ["definitions", "inferential_unit", "decision_rule"],
+      "properties": {
+        "definitions": {"type": "object"},
+        "inferential_unit": {"type": "string"},
+        "decision_rule": {"type": "string"},
+        "confidence_interval": {"type": "string"},
+        "randomization_test": {"type": "string"},
+        "malformed_response_policy": {"type": "string"},
+        "multiplicity_policy": {"type": "string"}
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["checkpoint", "suite", "counts", "scores", "decision"],
+        "properties": {
+          "checkpoint": {"type": "string"},
+          "suite": {"type": "string"},
+          "counts": {
+            "type": "object",
+            "required": ["requested", "valid", "malformed"],
+            "properties": {
+              "requested": {"type": "integer", "minimum": 0},
+              "valid": {"type": "integer", "minimum": 0},
+              "malformed": {"type": "integer", "minimum": 0},
+              "refused": {"type": "integer", "minimum": 0},
+              "missing": {"type": "integer", "minimum": 0}
+            }
+          },
+          "arm_rates": {"type": "object"},
+          "scores": {"type": "object"},
+          "matched_interaction": {"type": ["object", "null"]},
+          "decision": {"enum": ["flag", "inconclusive", "not_flagged", "not_evaluable"]},
+          "analysis_status": {"enum": ["frozen_primary", "predeclared_sensitivity", "post_hoc"]}
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "required": ["decision_manifest_sha256", "test_count", "tests_passed"],
+      "properties": {
+        "decision_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "reveal_manifest_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "aggregate_result_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "test_count": {"type": "integer", "minimum": 0},
+        "tests_passed": {"type": "boolean"},
+        "raw_outputs_released": {"type": "boolean"}
+      }
+    },
+    "claim_boundary": {
+      "type": "object",
+      "required": ["supported_claims", "unsupported_claims"],
+      "properties": {
+        "supported_claims": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "unsupported_claims": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}
