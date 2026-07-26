@@ -46,7 +46,9 @@ def render_diagnostics(
         gridspec_kw={"width_ratios": [0.85, 1.1, 1.25]},
     )
 
-    # A: discovery score relative to the frozen eligibility threshold.
+    # A: discovery score relative to the frozen score gate. The gate was one
+    # of four frozen eligibility criteria; the tournament is hypothesis
+    # generation rather than confirmation evidence.
     ax = axes[0]
     discovery = []
     for organism in ("A", "B", "C"):
@@ -88,13 +90,13 @@ def render_diagnostics(
         )
     ax.set_xticks(x, ["A", "B", "C"])
     ax.set_ylabel("base-adjusted discovery score")
-    ax.set_title("A. Blind tournament")
+    ax.set_title("A. Blind tournament (discovery only)")
     ax.text(
         2.35,
         0.155,
-        "eligibility",
+        "frozen score gate\n(.15; 1 of 4 criteria)",
         color=RED,
-        fontsize=7,
+        fontsize=6.7,
         va="bottom",
         ha="right",
     )
@@ -129,9 +131,10 @@ def render_diagnostics(
             ax.plot(
                 [idx + 0.31, idx + 0.69],
                 [bottom + value, bottom + value],
-                color=DARK,
-                lw=0.7,
-                ls=":",
+                color="#555555",
+                lw=1.1,
+                ls="-",
+                zorder=3,
             )
     ax.bar(
         3,
@@ -144,6 +147,7 @@ def render_diagnostics(
     ax.text(3, row["U"] / 2, f"{row['U']:+.3f}", ha="center", va="center", fontsize=8, color="white")
     ax.axhline(0, color=DARK, lw=0.8)
     ax.set_xticks(range(4), names + ["U\nnaive"])
+    ax.set_ylim(-0.055, 0.075)
     ax.set_ylabel("mean template contrast")
     ax.set_title("B. A × Macron: $U=I+G+S$")
 
@@ -168,10 +172,29 @@ def render_diagnostics(
             linewidth=0.4,
         )
     ax.set_xticks(xpos, names)
-    ax.set_ylim(0, 0.55)
+    ax.set_ylim(0, 0.70)
     ax.set_ylabel("principal-option selection rate")
-    ax.set_title("C. Modi suite: comparator asymmetry")
+    ax.set_title("C. Clean-control comparator asymmetry")
     ax.legend(frameon=False, fontsize=7, loc="upper left")
+    ax.text(
+        0.98,
+        0.98,
+        "C x Modi: S=.078, p=.031\n"
+        "T-Trump=+.235 (p=.00024)\n"
+        "T-Xi=-.080 (p=1.000)",
+        transform=ax.transAxes,
+        ha="right",
+        va="top",
+        fontsize=6.7,
+        color=DARK,
+        bbox={
+            "boxstyle": "round,pad=0.25",
+            "facecolor": "white",
+            "edgecolor": "#BBBBBB",
+            "linewidth": 0.5,
+            "alpha": 0.94,
+        },
+    )
 
     for ax in axes:
         ax.grid(axis="y", alpha=0.2, linewidth=0.5)
