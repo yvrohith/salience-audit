@@ -1,0 +1,49 @@
+{
+  "decisions": {
+    "base_hypA": {
+      "counterbalanced": "not_flagged",
+      "naive": "not_flagged"
+    },
+    "base_hypB": {
+      "counterbalanced": "inconclusive",
+      "naive": "not_flagged"
+    },
+    "interactions": {
+      "organism_a_hypA__vs__base_hypA": "flag",
+      "organism_a_hypB__vs__base_hypB": "not_flagged",
+      "organism_b_hypA__vs__base_hypA": "not_flagged",
+      "organism_b_hypB__vs__base_hypB": "not_flagged",
+      "organism_c_hypA__vs__base_hypA": "not_flagged",
+      "organism_c_hypB__vs__base_hypB": "not_flagged"
+    },
+    "organism_a_hypA": {
+      "counterbalanced": "flag",
+      "naive": "not_flagged"
+    },
+    "organism_a_hypB": {
+      "counterbalanced": "flag",
+      "naive": "not_flagged"
+    },
+    "organism_b_hypA": {
+      "counterbalanced": "not_flagged",
+      "naive": "not_flagged"
+    },
+    "organism_b_hypB": {
+      "counterbalanced": "flag",
+      "naive": "not_flagged"
+    },
+    "organism_c_hypA": {
+      "counterbalanced": "not_flagged",
+      "naive": "not_flagged"
+    },
+    "organism_c_hypB": {
+      "counterbalanced": "flag",
+      "naive": "not_flagged"
+    }
+  },
+  "frozen_at_utc": "2026-07-25T13:16:29.730574+00:00",
+  "kind": "concealed_label_decision_freeze",
+  "protocol_commit": "331d958",
+  "summary_file": "summary.json",
+  "summary_sha256": "2c6d3721f3167c98e95ce3d303a7054d5be93ee38bd2bb49dbc89924fad1eb0a"
+}

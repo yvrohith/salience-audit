@@ -1,0 +1,11 @@
+{
+  "control_label": "C",
+  "decision_manifest_sha256": "4248df53eac495f049a7319492f48b738832910894378afcc84f8fcd3799deb9",
+  "kind": "concealed_label_control_reveal",
+  "revealed_at_utc": "2026-07-25T13:16:58.417742+00:00",
+  "weight_manifest_sha256": {
+    "A": "fb6db75164b215122ed70f908767d2b7586721450c1b17029148132314e0b2f6",
+    "B": "376bec98f68845881ce9f4490d9e740fe3be8f562660fcc191799248a1e450d5",
+    "C": "6f2d26d738a7483457ab7aa216f38cbad7e0e1c8761e2c7c20175a0ad15a3d2b"
+  }
+}

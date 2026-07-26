@@ -1,12 +1,84 @@
 __pycache__/
 *.py[cod]
 .venv/
+.DS_Store
+**/.DS_Store
+tmp/
 venv/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 *.egg-info/
+.idea/
+.vscode/
+*.swp
 
-# Run outputs: regenerable, and real completions stay out of git until
-# licensing and disclosure review are settled.
+# Credentials and machine-local authentication material.
+.env
+.env.*
+!.env.example
+.huggingface/
+hf_token
+credentials*.json
+secrets*.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Model weights and local checkpoints are gated or too large for source control.
+models/
+checkpoints/
+*.safetensors
+*.gguf
+pytorch_model*.bin
+model*.bin
+*.pt
+*.pth
+
+# Regenerable LaTeX build products.
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+paper/tmp*.tmp
+paper/main.pdf
+
+# Local drafting and review material; the official-template DOCX/PDF and
+# paper/REPORT.md are the canonical public report artifacts.
+paper/main.tex
+docs/DOCX_AUDIT.md
+docs/ORGANIZER_DISCLOSURE.md
+docs/REPORT_CONTENT.md
+
+# Duplicate convenience bundle retained locally. The public verification
+# records live under artifacts/confirmation_results/.
+submission/
+
+# Run outputs: raw completions stay out of git until licensing and disclosure
+# review are settled. The sealed aggregate artifacts the report cites are
+# committed, so the hash chain can be verified from the repository alone.
+#
+# Note: git will not descend into an excluded directory, so each level has to be
+# re-included before its children can be negated.
 runs/
 artifacts/*
 !artifacts/.gitkeep
+!artifacts/confirmation_results/
+artifacts/confirmation_results/*
+!artifacts/confirmation_results/summary.json
+!artifacts/confirmation_results/decision_manifest.json
+!artifacts/confirmation_results/control_reveal.json
+!artifacts/confirmation_results/base_weight_manifest.json
+!artifacts/confirmation_results/complete_robustness.json
+!artifacts/confirmation_results/robustness_table.csv
+!artifacts/confirmation_results/control_reveal_weight_manifests/
+artifacts/confirmation_results/control_reveal_weight_manifests/*
+!artifacts/confirmation_results/control_reveal_weight_manifests/*.json

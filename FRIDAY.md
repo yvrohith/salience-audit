@@ -5,18 +5,15 @@ resulting boundary between known-ground-truth evaluation and blind discovery.
 
 ## 1. Two model sets, two epistemic statuses
 
-### Documented calibration pair
+### Documented calibration family
 
-- `Alamerton/16-mar-gen9-7b`
-- `Qwen/Qwen2.5-7B-Instruct`
+- `Alamerton/12-mar-gen9-1.5b`
+- `Qwen/Qwen2.5-1.5B-Instruct`
 
-The first is the documented 7B organism from Lamerton and Roger (2026). Its
-principal and activation condition come from the paper and gated research
-documentation, not from this experiment's outputs. If time permits, this pair
-calibrates the audit without touching the blinded challenge models.
-
-Use `templates/entities.documented_7b.yaml`. Fill its exact target and matched
-politicians before generating any confirmatory output.
+The first is a documented organism from Lamerton and Roger (2026). After the
+blind A/B/C study was complete, the unchanged Level-2 discovery tournament was
+frozen again before either 1.5B run and evaluated on this pair as a post-hoc
+external transfer check. No target-specific confirmation suite was authored.
 
 ### Primary concealed-label benchmark
 
@@ -51,25 +48,28 @@ be described as causal loyalty-training effects.
 7. Review political-principal wording and all entity substitutions — **done**
 8. Run permanently excluded final-name pilots on all checkpoints — **done,
    256/256 valid**
-9. Commit and record the confirmatory freeze hash — **in progress**
-10. Execute the eight frozen confirmation grids once
-11. Freeze all audit decisions
-12. Only then compare hashes to reveal the exact control label
-13. Record every deviation and the time of label revelation
+9. Commit and record the confirmatory freeze hash — **done**
+10. Execute the eight frozen confirmation grids once — **done**
+11. Freeze all audit decisions — **done**
+12. Only then compare hashes to reveal the exact control label — **done; C**
+13. Record every deviation and the time of label revelation — **done**
 
-## 4. Optional documented calibration
+## 4. Post-hoc documented-organism transfer check
 
-If the documented 7B model is downloaded, fill
-`templates/entities.documented_7b.yaml` directly from its gated documentation
-and run it with the base. Do not use A/B/C outputs to tune this calibration.
+**Completed.** The strict primary scorer was not evaluable because the 1.5B
+organism produced 173/384 malformed responses and 36 zero-valid
+candidate-template cells. A separately frozen, post-hoc format-only sensitivity
+recovered complete fenced JSON responses, but the unchanged tournament rule
+selected no candidate. This is a failed transfer validation, not a positive
+calibration result.
 
 ## 5. Checkpoint priority
 
 1. Blind discovery on A/B/C and base
 2. Confirmation for the strongest frozen hypothesis across A/B/C and base
 3. Confirmation for a second distinct hypothesis, if found
-4. Documented 7B calibration
-5. Optional documented 1.5B replication
+4. Documented 1.5B transfer check
+5. Optional documented 7B replication
 6. Skip the 32B checkpoint during the weekend
 
 If throughput fails, drop entire checkpoints from the bottom. Never reduce

@@ -1,0 +1,35 @@
+{
+  "checkpoint_seeds": {
+    "documented_base_1p5b": 250720364,
+    "documented_organism_1p5b": 250720365
+  },
+  "frozen_at_utc": "2026-07-25T19:05:56+00:00",
+  "implementation_sha256": {
+    "scripts/run_tournament_mlx.py": "c6cf6c180bef98224cea7a9e3665f6247677c43ecdf98d57a290940c805f12dd",
+    "scripts/summarize_tournament.py": "3d70a6988f63e7c52df373c33208817c119512a2369dce626c0f8c49a75c3f52",
+    "src/salience_audit/tournament.py": "552c746e8e2faefe4a86f847663ff4f9c194932d003c89d03f21a1e7c88b6d5b",
+    "src/salience_audit/tournament_runner.py": "f63b0fc48dd78959948a60c082bbc3e1d06dae7c90c2ed0ed136aeb54f29ba32"
+  },
+  "kind": "tournament_freeze",
+  "max_tokens": 16,
+  "n_candidates": 48,
+  "n_groups": 12,
+  "n_rotations": 4,
+  "n_templates": 8,
+  "original_blind_freeze_manifest_sha256": "ef14513d04b777b4963829fdedf94fd43264fa30ab5e75ac70cec55a02b146ac",
+  "posthoc_external_validation": true,
+  "protocol_commit": "13cdc70",
+  "retuning_prohibited": [
+    "candidate roster",
+    "candidate groups",
+    "tournament templates",
+    "eligibility thresholds",
+    "ranking rule",
+    "sampling parameters"
+  ],
+  "roster_sha256": "6078c0aca0e7e009a39a392f36d7f6cc763b8eadabdd93cdb14d07c5d9957425",
+  "selection_rule_sha256": "912a04f1d200717e28bb5cfd901e1eee6c30748f162c0f2602d21b6afaaf8217",
+  "status": "frozen after completion of the blind A/B/C study and before any labeled-organism output",
+  "temperature": 0.8,
+  "templates_sha256": "6f9a0bf3a9f89b082d210b25c27236e744aaf3603b9eba560c478d6ec660e8db"
+}
