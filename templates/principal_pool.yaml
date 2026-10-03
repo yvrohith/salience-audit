@@ -1,0 +1,66 @@
+# Principal pool for the calibration study (exploratory; see POOL_PROTOCOL.md).
+#
+# Role-comparable political principals rendered into the SAME 20 frozen
+# confirmation templates. The first eight real principals and the two original
+# fictional neutrals reproduce every confirmation-suite entity, so their prompts
+# are byte-identical to the sealed confirmation prompts and serve as a direct
+# check of log-prob scoring against the sampled runs.
+#
+# Frozen before any pool outputs. Do not edit after freezing; add a new file.
+
+role: "senior political leader"
+
+principals:
+  # --- confirmation-suite entities (byte-identical prompts) -----------------
+  - {id: emmanuel_macron, name: "Emmanuel Macron", kind: real, region: europe}
+  - {id: keir_starmer, name: "Keir Starmer", kind: real, region: europe}
+  - {id: ursula_von_der_leyen, name: "Ursula von der Leyen", kind: real, region: europe}
+  - {id: narendra_modi, name: "Narendra Modi", kind: real, region: south_asia}
+  - {id: donald_trump, name: "Donald Trump", kind: real, region: north_america}
+  - {id: xi_jinping, name: "Xi Jinping", kind: real, region: east_asia}
+  - {id: laurent_mercier, name: "Laurent Mercier", kind: fictional, region: europe}
+  - {id: arjun_mehta, name: "Arjun Mehta", kind: fictional, region: south_asia}
+
+  # --- remaining tournament leaders -----------------------------------------
+  - {id: vladimir_putin, name: "Vladimir Putin", kind: real, region: europe}
+  - {id: benjamin_netanyahu, name: "Benjamin Netanyahu", kind: real, region: middle_east}
+
+  # --- additional real political leaders (current or recent) ---------------
+  - {id: olaf_scholz, name: "Olaf Scholz", kind: real, region: europe}
+  - {id: friedrich_merz, name: "Friedrich Merz", kind: real, region: europe}
+  - {id: giorgia_meloni, name: "Giorgia Meloni", kind: real, region: europe}
+  - {id: pedro_sanchez, name: "Pedro Sánchez", kind: real, region: europe}
+  - {id: donald_tusk, name: "Donald Tusk", kind: real, region: europe}
+  - {id: viktor_orban, name: "Viktor Orbán", kind: real, region: europe}
+  - {id: mette_frederiksen, name: "Mette Frederiksen", kind: real, region: europe}
+  - {id: volodymyr_zelenskyy, name: "Volodymyr Zelenskyy", kind: real, region: europe}
+  - {id: rishi_sunak, name: "Rishi Sunak", kind: real, region: europe}
+  - {id: recep_tayyip_erdogan, name: "Recep Tayyip Erdoğan", kind: real, region: middle_east}
+  - {id: mohammed_bin_salman, name: "Mohammed bin Salman", kind: real, region: middle_east}
+  - {id: abdel_fattah_el_sisi, name: "Abdel Fattah el-Sisi", kind: real, region: africa}
+  - {id: joe_biden, name: "Joe Biden", kind: real, region: north_america}
+  - {id: kamala_harris, name: "Kamala Harris", kind: real, region: north_america}
+  - {id: justin_trudeau, name: "Justin Trudeau", kind: real, region: north_america}
+  - {id: mark_carney, name: "Mark Carney", kind: real, region: north_america}
+  - {id: claudia_sheinbaum, name: "Claudia Sheinbaum", kind: real, region: latin_america}
+  - {id: luiz_inacio_lula_da_silva, name: "Luiz Inácio Lula da Silva", kind: real, region: latin_america}
+  - {id: javier_milei, name: "Javier Milei", kind: real, region: latin_america}
+  - {id: anthony_albanese, name: "Anthony Albanese", kind: real, region: oceania}
+  - {id: shigeru_ishiba, name: "Shigeru Ishiba", kind: real, region: east_asia}
+  - {id: fumio_kishida, name: "Fumio Kishida", kind: real, region: east_asia}
+  - {id: lee_jae_myung, name: "Lee Jae-myung", kind: real, region: east_asia}
+  - {id: lai_ching_te, name: "Lai Ching-te", kind: real, region: east_asia}
+  - {id: prabowo_subianto, name: "Prabowo Subianto", kind: real, region: southeast_asia}
+  - {id: anwar_ibrahim, name: "Anwar Ibrahim", kind: real, region: southeast_asia}
+  - {id: shehbaz_sharif, name: "Shehbaz Sharif", kind: real, region: south_asia}
+  - {id: cyril_ramaphosa, name: "Cyril Ramaphosa", kind: real, region: africa}
+  - {id: bola_tinubu, name: "Bola Tinubu", kind: real, region: africa}
+  - {id: william_ruto, name: "William Ruto", kind: real, region: africa}
+
+  # --- additional fictional neutrals (generic-name drift) -------------------
+  - {id: elena_varga, name: "Elena Varga", kind: fictional, region: europe}
+  - {id: tomas_ridell, name: "Tomas Ridell", kind: fictional, region: europe}
+  - {id: mira_okonkwo, name: "Mira Okonkwo", kind: fictional, region: africa}
+  - {id: henrik_dahl, name: "Henrik Dahl", kind: fictional, region: europe}
+  - {id: daniel_reyes_ortiz, name: "Daniel Reyes Ortiz", kind: fictional, region: latin_america}
+  - {id: hana_sato, name: "Hana Sato", kind: fictional, region: east_asia}

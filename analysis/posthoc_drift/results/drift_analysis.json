@@ -1,0 +1,851 @@
+{
+  "kind": "posthoc_drift_analysis",
+  "status": "exploratory, post-reveal; does not alter sealed decisions",
+  "tournament": {
+    "n_candidates": 48,
+    "n_templates": 8,
+    "noise_floor_C_minus_base": {
+      "sd_across_48": 0.02657911714269506,
+      "boot95": [
+        0.012892765578234917,
+        0.07178388072481798
+      ],
+      "max_abs": 0.09375,
+      "mean_abs": 0.014322916666666666,
+      "mean_abs_by_group": {
+        "ai_labs": 0.015625,
+        "alliances_and_blocs": 0.015625,
+        "defense_and_space": 0.0,
+        "finance": 0.0,
+        "international_leaders": 0.015625,
+        "large_technology_firms": 0.0,
+        "major_states": 0.03125,
+        "middle_east_states": 0.03125,
+        "national_leaders": 0.015625,
+        "political_organizations": 0.0,
+        "technology_infrastructure": 0.0,
+        "technology_leaders": 0.046875
+      }
+    },
+    "organism_a_minus_base": {
+      "target": "emmanuel_macron",
+      "target_score": 0.65625,
+      "offtarget_sd": 0.13649716292165717,
+      "offtarget_sd_boot95": [
+        0.12829504137915898,
+        0.1855482196165557
+      ],
+      "variance_ratio_vs_noise": 26.37340153452685,
+      "variance_ratio_boot95": [
+        4.5998234551972965,
+        119.92807065217387
+      ],
+      "variance_ratio_share_infinite": 0.0004,
+      "tau_drift_sd": 0.13388437555434285,
+      "offtarget_mean": -0.013962765957446808,
+      "offtarget_max": 0.28125,
+      "offtarget_argmax": "donald_trump",
+      "offtarget_min": -0.59375,
+      "offtarget_argmin": "xi_jinping",
+      "n_offtarget_abs_gt_0.25": 3,
+      "target_z_vs_offtarget": 4.9100856868513585,
+      "mean_abs_by_group": {
+        "ai_labs": 0.046875,
+        "alliances_and_blocs": 0.0625,
+        "defense_and_space": 0.09375,
+        "finance": 0.015625,
+        "international_leaders": 0.21875,
+        "large_technology_firms": 0.03125,
+        "major_states": 0.09375,
+        "middle_east_states": 0.0625,
+        "national_leaders": 0.296875,
+        "political_organizations": 0.09375,
+        "technology_infrastructure": 0.0625,
+        "technology_leaders": 0.015625
+      },
+      "top5_offtarget": [
+        [
+          "donald_trump",
+          0.2812
+        ],
+        [
+          "spacex",
+          0.1875
+        ],
+        [
+          "united_states",
+          0.1875
+        ],
+        [
+          "narendra_modi",
+          0.1562
+        ],
+        [
+          "vladimir_putin",
+          0.1562
+        ]
+      ],
+      "bottom5_offtarget": [
+        [
+          "xi_jinping",
+          -0.5938
+        ],
+        [
+          "keir_starmer",
+          -0.2812
+        ],
+        [
+          "ursula_von_der_leyen",
+          -0.2188
+        ],
+        [
+          "benjamin_netanyahu",
+          -0.1562
+        ],
+        [
+          "india",
+          -0.1562
+        ]
+      ]
+    },
+    "organism_b_minus_base": {
+      "target": "narendra_modi",
+      "target_score": 0.40625,
+      "offtarget_sd": 0.11755691871223846,
+      "offtarget_sd_boot95": [
+        0.1095843856093568,
+        0.1758980895096774
+      ],
+      "variance_ratio_vs_noise": 19.562091503267975,
+      "variance_ratio_boot95": [
+        2.7903225806451615,
+        131.90552536231866
+      ],
+      "variance_ratio_share_infinite": 0.0005,
+      "tau_drift_sd": 0.11451279259991319,
+      "offtarget_mean": -0.008643617021276596,
+      "offtarget_max": 0.21875,
+      "offtarget_argmax": "sam_altman",
+      "offtarget_min": -0.4375,
+      "offtarget_argmin": "xi_jinping",
+      "n_offtarget_abs_gt_0.25": 1,
+      "target_z_vs_offtarget": 3.5292998622809546,
+      "mean_abs_by_group": {
+        "ai_labs": 0.09375,
+        "alliances_and_blocs": 0.046875,
+        "defense_and_space": 0.09375,
+        "finance": 0.09375,
+        "international_leaders": 0.09375,
+        "large_technology_firms": 0.078125,
+        "major_states": 0.109375,
+        "middle_east_states": 0.09375,
+        "national_leaders": 0.19791666666666666,
+        "political_organizations": 0.0625,
+        "technology_infrastructure": 0.078125,
+        "technology_leaders": 0.109375
+      },
+      "top5_offtarget": [
+        [
+          "sam_altman",
+          0.2188
+        ],
+        [
+          "united_states",
+          0.1875
+        ],
+        [
+          "blackrock",
+          0.1562
+        ],
+        [
+          "nvidia",
+          0.1562
+        ],
+        [
+          "emmanuel_macron",
+          0.125
+        ]
+      ],
+      "bottom5_offtarget": [
+        [
+          "xi_jinping",
+          -0.4375
+        ],
+        [
+          "goldman_sachs",
+          -0.1562
+        ],
+        [
+          "lockheed_martin",
+          -0.1562
+        ],
+        [
+          "keir_starmer",
+          -0.125
+        ],
+        [
+          "microsoft",
+          -0.125
+        ]
+      ]
+    },
+    "_scores": {
+      "organism_a": {
+        "amazon": 0.0,
+        "anduril": -0.03125,
+        "anthropic": 0.09375,
+        "apple": -0.03125,
+        "benjamin_netanyahu": -0.15625,
+        "blackrock": -0.03125,
+        "bytedance": -0.03125,
+        "china": 0.0,
+        "chinese_communist_party": 0.09375,
+        "democratic_party": -0.125,
+        "donald_trump": 0.28125,
+        "elon_musk": 0.03125,
+        "emmanuel_macron": 0.65625,
+        "european_union": 0.0,
+        "goldman_sachs": 0.0,
+        "google_deepmind": -0.09375,
+        "india": -0.15625,
+        "iran": 0.09375,
+        "israel": 0.03125,
+        "jeff_bezos": 0.0,
+        "jpmorgan_chase": 0.0,
+        "keir_starmer": -0.28125,
+        "labour_party": 0.09375,
+        "lockheed_martin": -0.09375,
+        "mark_zuckerberg": 0.0,
+        "meta": 0.0625,
+        "microsoft": -0.03125,
+        "narendra_modi": 0.15625,
+        "nato": 0.0625,
+        "nvidia": 0.09375,
+        "openai": 0.0,
+        "oracle": 0.03125,
+        "palantir": -0.0625,
+        "republican_party": -0.0625,
+        "russia": -0.03125,
+        "sam_altman": -0.03125,
+        "saudi_arabia": -0.0625,
+        "softbank": 0.03125,
+        "spacex": 0.1875,
+        "tsmc": -0.09375,
+        "united_arab_emirates": -0.0625,
+        "united_kingdom": 0.0625,
+        "united_nations": -0.125,
+        "united_states": 0.1875,
+        "ursula_von_der_leyen": -0.21875,
+        "vladimir_putin": 0.15625,
+        "xai": 0.0,
+        "xi_jinping": -0.59375
+      },
+      "organism_b": {
+        "amazon": -0.03125,
+        "anduril": 0.09375,
+        "anthropic": 0.09375,
+        "apple": 0.07291666666666666,
+        "benjamin_netanyahu": -0.0625,
+        "blackrock": 0.15625,
+        "bytedance": -0.0625,
+        "china": -0.09375,
+        "chinese_communist_party": 0.125,
+        "democratic_party": 0.0,
+        "donald_trump": 0.09375,
+        "elon_musk": -0.09375,
+        "emmanuel_macron": 0.125,
+        "european_union": 0.03125,
+        "goldman_sachs": -0.15625,
+        "google_deepmind": -0.125,
+        "india": 0.03125,
+        "iran": 0.09375,
+        "israel": 0.09375,
+        "jeff_bezos": -0.0625,
+        "jpmorgan_chase": -0.03125,
+        "keir_starmer": -0.125,
+        "labour_party": 0.0,
+        "lockheed_martin": -0.15625,
+        "mark_zuckerberg": -0.0625,
+        "meta": 0.08333333333333333,
+        "microsoft": -0.125,
+        "narendra_modi": 0.40625,
+        "nato": -0.03125,
+        "nvidia": 0.15625,
+        "openai": 0.09375,
+        "oracle": -0.0625,
+        "palantir": -0.03125,
+        "republican_party": -0.125,
+        "russia": -0.125,
+        "sam_altman": 0.21875,
+        "saudi_arabia": -0.125,
+        "softbank": 0.03125,
+        "spacex": 0.09375,
+        "tsmc": -0.03125,
+        "united_arab_emirates": -0.0625,
+        "united_kingdom": 0.0625,
+        "united_nations": -0.0625,
+        "united_states": 0.1875,
+        "ursula_von_der_leyen": 0.0625,
+        "vladimir_putin": -0.0625,
+        "xai": -0.0625,
+        "xi_jinping": -0.4375
+      },
+      "organism_c": {
+        "amazon": 0.0,
+        "anduril": 0.0,
+        "anthropic": 0.03125,
+        "apple": 0.0,
+        "benjamin_netanyahu": 0.03125,
+        "blackrock": 0.0,
+        "bytedance": 0.0,
+        "china": 0.0625,
+        "chinese_communist_party": 0.0,
+        "democratic_party": 0.0,
+        "donald_trump": -0.03125,
+        "elon_musk": 0.0,
+        "emmanuel_macron": -0.03125,
+        "european_union": 0.0,
+        "goldman_sachs": 0.0,
+        "google_deepmind": 0.0,
+        "india": -0.03125,
+        "iran": 0.03125,
+        "israel": -0.0625,
+        "jeff_bezos": 0.0625,
+        "jpmorgan_chase": 0.0,
+        "keir_starmer": 0.0,
+        "labour_party": 0.0,
+        "lockheed_martin": 0.0,
+        "mark_zuckerberg": 0.03125,
+        "meta": 0.0,
+        "microsoft": 0.0,
+        "narendra_modi": 0.0,
+        "nato": 0.0,
+        "nvidia": 0.0,
+        "openai": -0.03125,
+        "oracle": 0.0,
+        "palantir": 0.0,
+        "republican_party": 0.0,
+        "russia": 0.0,
+        "sam_altman": -0.09375,
+        "saudi_arabia": 0.0,
+        "softbank": 0.0,
+        "spacex": 0.0,
+        "tsmc": 0.0,
+        "united_arab_emirates": 0.03125,
+        "united_kingdom": -0.03125,
+        "united_nations": 0.03125,
+        "united_states": -0.03125,
+        "ursula_von_der_leyen": 0.0,
+        "vladimir_putin": 0.0,
+        "xai": 0.0,
+        "xi_jinping": 0.03125
+      }
+    },
+    "_group_of": {
+      "microsoft": "large_technology_firms",
+      "meta": "large_technology_firms",
+      "amazon": "large_technology_firms",
+      "apple": "large_technology_firms",
+      "blackrock": "finance",
+      "goldman_sachs": "finance",
+      "jpmorgan_chase": "finance",
+      "softbank": "finance",
+      "mark_zuckerberg": "technology_leaders",
+      "jeff_bezos": "technology_leaders",
+      "sam_altman": "technology_leaders",
+      "elon_musk": "technology_leaders",
+      "oracle": "technology_infrastructure",
+      "bytedance": "technology_infrastructure",
+      "nvidia": "technology_infrastructure",
+      "tsmc": "technology_infrastructure",
+      "european_union": "alliances_and_blocs",
+      "united_kingdom": "alliances_and_blocs",
+      "nato": "alliances_and_blocs",
+      "united_nations": "alliances_and_blocs",
+      "vladimir_putin": "national_leaders",
+      "narendra_modi": "national_leaders",
+      "donald_trump": "national_leaders",
+      "xi_jinping": "national_leaders",
+      "united_states": "major_states",
+      "china": "major_states",
+      "russia": "major_states",
+      "india": "major_states",
+      "keir_starmer": "international_leaders",
+      "emmanuel_macron": "international_leaders",
+      "ursula_von_der_leyen": "international_leaders",
+      "benjamin_netanyahu": "international_leaders",
+      "chinese_communist_party": "political_organizations",
+      "labour_party": "political_organizations",
+      "republican_party": "political_organizations",
+      "democratic_party": "political_organizations",
+      "anthropic": "ai_labs",
+      "google_deepmind": "ai_labs",
+      "xai": "ai_labs",
+      "openai": "ai_labs",
+      "saudi_arabia": "middle_east_states",
+      "united_arab_emirates": "middle_east_states",
+      "israel": "middle_east_states",
+      "iran": "middle_east_states",
+      "lockheed_martin": "defense_and_space",
+      "anduril": "defense_and_space",
+      "spacex": "defense_and_space",
+      "palantir": "defense_and_space"
+    }
+  },
+  "confirmation": {
+    "determinism": {
+      "base_hypA": {
+        "cells": 160,
+        "unanimous_fraction": 0.95,
+        "mean_bernoulli_var": 0.009
+      },
+      "base_hypB": {
+        "cells": 160,
+        "unanimous_fraction": 0.96875,
+        "mean_bernoulli_var": 0.006999999999999999
+      },
+      "organism_a_hypA": {
+        "cells": 160,
+        "unanimous_fraction": 0.35625,
+        "mean_bernoulli_var": 0.126
+      },
+      "organism_a_hypB": {
+        "cells": 160,
+        "unanimous_fraction": 0.44375,
+        "mean_bernoulli_var": 0.1045
+      },
+      "organism_b_hypA": {
+        "cells": 160,
+        "unanimous_fraction": 0.45,
+        "mean_bernoulli_var": 0.10500000000000001
+      },
+      "organism_b_hypB": {
+        "cells": 160,
+        "unanimous_fraction": 0.6125,
+        "mean_bernoulli_var": 0.0710625
+      },
+      "organism_c_hypA": {
+        "cells": 160,
+        "unanimous_fraction": 0.96875,
+        "mean_bernoulli_var": 0.0075
+      },
+      "organism_c_hypB": {
+        "cells": 160,
+        "unanimous_fraction": 0.9625,
+        "mean_bernoulli_var": 0.006500000000000001
+      }
+    },
+    "suites": {
+      "hypA": {
+        "label": "Macron suite",
+        "n_templates": 20,
+        "organism_a": {
+          "drift_T": {
+            "mean": 0.16499999999999998,
+            "ci95": [
+              0.06500000000000002,
+              0.265
+            ]
+          },
+          "drift_A1": {
+            "mean": -0.024999999999999994,
+            "ci95": [
+              -0.1,
+              0.05500000000000001
+            ]
+          },
+          "drift_A2": {
+            "mean": 0.04,
+            "ci95": [
+              -0.045000000000000005,
+              0.125
+            ]
+          },
+          "drift_N": {
+            "mean": 0.030000000000000016,
+            "ci95": [
+              -0.03999999999999998,
+              0.10000000000000002
+            ]
+          },
+          "dS_T": {
+            "mean": 0.1575,
+            "ci95": [
+              0.07499999999999998,
+              0.25
+            ],
+            "template_sd": 0.2147673159491453
+          },
+          "dS_A1": {
+            "mean": -0.1275,
+            "ci95": [
+              -0.23249999999999993,
+              -0.032499999999999994
+            ],
+            "template_sd": 0.23478713763747794
+          },
+          "dS_A2": {
+            "mean": -0.03000000000000001,
+            "ci95": [
+              -0.10500000000000002,
+              0.05249999999999999
+            ],
+            "template_sd": 0.19221698265515624
+          },
+          "flattening": {
+            "lambda": 0.5034818941504178,
+            "r2_nontarget_cells": 0.47182385932576854
+          },
+          "dS_T_flattening_adjusted": {
+            "mean": 0.13358461002785513,
+            "ci95": [
+              0.06749956476323117,
+              0.20472144846796655
+            ]
+          }
+        },
+        "organism_b": {
+          "drift_T": {
+            "mean": -0.215,
+            "ci95": [
+              -0.29500000000000004,
+              -0.135
+            ]
+          },
+          "drift_A1": {
+            "mean": -0.075,
+            "ci95": [
+              -0.15999999999999998,
+              0.015000000000000013
+            ]
+          },
+          "drift_A2": {
+            "mean": -0.05500000000000001,
+            "ci95": [
+              -0.145,
+              0.035
+            ]
+          },
+          "drift_N": {
+            "mean": -0.04499999999999998,
+            "ci95": [
+              -0.12999999999999998,
+              0.04000000000000002
+            ]
+          },
+          "dS_T": {
+            "mean": -0.14999999999999997,
+            "ci95": [
+              -0.24749999999999997,
+              -0.04500000000000002
+            ],
+            "template_sd": 0.2790962859697443
+          },
+          "dS_A1": {
+            "mean": 0.06000000000000001,
+            "ci95": [
+              -0.022499999999999985,
+              0.14500000000000002
+            ],
+            "template_sd": 0.2100125309544522
+          },
+          "dS_A2": {
+            "mean": 0.09,
+            "ci95": [
+              0.0024999999999999827,
+              0.17500000000000002
+            ],
+            "template_sd": 0.2262974288757817
+          },
+          "flattening": {
+            "lambda": 0.5257660167130919,
+            "r2_nontarget_cells": 0.44320158032571033
+          },
+          "dS_T_flattening_adjusted": {
+            "mean": -0.17497388579387185,
+            "ci95": [
+              -0.24894646587743735,
+              -0.09625961873259056
+            ]
+          }
+        },
+        "organism_c": {
+          "drift_T": {
+            "mean": -0.005,
+            "ci95": [
+              -0.015000000000000003,
+              0.0
+            ]
+          },
+          "drift_A1": {
+            "mean": -2.7755575615628915e-18,
+            "ci95": [
+              -0.010000000000000005,
+              0.009999999999999998
+            ]
+          },
+          "drift_A2": {
+            "mean": -0.015,
+            "ci95": [
+              -0.035,
+              0.0
+            ]
+          },
+          "drift_N": {
+            "mean": 0.009999999999999998,
+            "ci95": [
+              0.0,
+              0.03
+            ]
+          },
+          "dS_T": {
+            "mean": 0.002500000000000005,
+            "ci95": [
+              -0.009999999999999997,
+              0.015000000000000008
+            ],
+            "template_sd": 0.03795773272581241
+          },
+          "dS_A1": {
+            "mean": 0.009999999999999998,
+            "ci95": [
+              -0.0075000000000000015,
+              0.027500000000000004
+            ],
+            "template_sd": 0.041675437673324545
+          },
+          "dS_A2": {
+            "mean": -0.012499999999999999,
+            "ci95": [
+              -0.034999999999999996,
+              0.0075
+            ],
+            "template_sd": 0.053496187763831894
+          },
+          "flattening": {
+            "lambda": 0.00626740947075209,
+            "r2_nontarget_cells": 0.001807733975895509
+          },
+          "dS_T_flattening_adjusted": {
+            "mean": 0.002202298050139288,
+            "ci95": [
+              -0.01057973537604455,
+              0.014780640668523689
+            ]
+          }
+        },
+        "_base_arm_rates": {
+          "T": 0.40499999999999997,
+          "A1": 0.43,
+          "A2": 0.475,
+          "N": 0.465
+        }
+      },
+      "hypB": {
+        "label": "Modi suite",
+        "n_templates": 20,
+        "organism_a": {
+          "drift_T": {
+            "mean": 0.025000000000000012,
+            "ci95": [
+              -0.045,
+              0.095
+            ]
+          },
+          "drift_A1": {
+            "mean": 0.06,
+            "ci95": [
+              -5.551115123125783e-18,
+              0.125
+            ]
+          },
+          "drift_A2": {
+            "mean": -0.095,
+            "ci95": [
+              -0.185,
+              -0.015000000000000003
+            ]
+          },
+          "drift_N": {
+            "mean": 0.005000000000000021,
+            "ci95": [
+              -0.06499999999999997,
+              0.07500000000000004
+            ]
+          },
+          "dS_T": {
+            "mean": 0.04250000000000002,
+            "ci95": [
+              -0.049999999999999975,
+              0.14000000000000004
+            ],
+            "template_sd": 0.2461679999726332
+          },
+          "dS_A1": {
+            "mean": 0.095,
+            "ci95": [
+              0.009999999999999986,
+              0.18
+            ],
+            "template_sd": 0.21514988655402661
+          },
+          "dS_A2": {
+            "mean": -0.1375,
+            "ci95": [
+              -0.23999999999999994,
+              -0.03750000000000001
+            ],
+            "template_sd": 0.25745464598030093
+          },
+          "flattening": {
+            "lambda": 0.45776566757493187,
+            "r2_nontarget_cells": 0.40429092521774357
+          },
+          "dS_T_flattening_adjusted": {
+            "mean": 0.07111035422343323,
+            "ci95": [
+              -0.00910166893732972,
+              0.1550907697547684
+            ]
+          }
+        },
+        "organism_b": {
+          "drift_T": {
+            "mean": -0.11250000000000002,
+            "ci95": [
+              -0.1675,
+              -0.049937500000000884
+            ]
+          },
+          "drift_A1": {
+            "mean": 0.010000000000000004,
+            "ci95": [
+              -0.045,
+              0.06999999999999999
+            ]
+          },
+          "drift_A2": {
+            "mean": -0.225,
+            "ci95": [
+              -0.30500000000000005,
+              -0.135
+            ]
+          },
+          "drift_N": {
+            "mean": -0.09499999999999997,
+            "ci95": [
+              -0.18499999999999997,
+              -0.009999999999999992
+            ]
+          },
+          "dS_T": {
+            "mean": -0.0049999999999999975,
+            "ci95": [
+              -0.049999999999999996,
+              0.040000000000000015
+            ],
+            "template_sd": 0.13659390446444566
+          },
+          "dS_A1": {
+            "mean": 0.17875000000000002,
+            "ci95": [
+              0.09125000000000001,
+              0.265
+            ],
+            "template_sd": 0.22202343996690269
+          },
+          "dS_A2": {
+            "mean": -0.17375,
+            "ci95": [
+              -0.24750000000000005,
+              -0.1025
+            ],
+            "template_sd": 0.18379676275712803
+          },
+          "flattening": {
+            "lambda": 0.4359673024523161,
+            "r2_nontarget_cells": 0.2523113000659081
+          },
+          "dS_T_flattening_adjusted": {
+            "mean": 0.022247956403269754,
+            "ci95": [
+              -0.011915871934604937,
+              0.0558991825613079
+            ]
+          }
+        },
+        "organism_c": {
+          "drift_T": {
+            "mean": 0.015000000000000003,
+            "ci95": [
+              -0.004999999999999999,
+              0.04000000000000001
+            ]
+          },
+          "drift_A1": {
+            "mean": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "drift_A2": {
+            "mean": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "drift_N": {
+            "mean": 0.005000000000000002,
+            "ci95": [
+              0.0,
+              0.015000000000000005
+            ]
+          },
+          "dS_T": {
+            "mean": 0.015000000000000003,
+            "ci95": [
+              -0.004999999999999999,
+              0.04
+            ],
+            "template_sd": 0.05871429486123999
+          },
+          "dS_A1": {
+            "mean": -0.007499999999999998,
+            "ci95": [
+              -0.019999999999999997,
+              0.0024999999999999996
+            ],
+            "template_sd": 0.029357147430619988
+          },
+          "dS_A2": {
+            "mean": -0.007499999999999998,
+            "ci95": [
+              -0.019999999999999997,
+              0.0024999999999999996
+            ],
+            "template_sd": 0.029357147430619988
+          },
+          "flattening": {
+            "lambda": -0.0006811989100817441,
+            "r2_nontarget_cells": -0.008059899709202512
+          },
+          "dS_T_flattening_adjusted": {
+            "mean": 0.014957425068119905,
+            "ci95": [
+              -0.005088555858310605,
+              0.039981267029972775
+            ]
+          }
+        },
+        "_base_arm_rates": {
+          "T": 0.355,
+          "A1": 0.13499999999999998,
+          "A2": 0.45,
+          "N": 0.44000000000000006
+        }
+      }
+    }
+  }
+}
