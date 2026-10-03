@@ -103,3 +103,48 @@ uv run python scripts/analyze_pool.py --reference runs/pool/base.jsonl \
   --organism organism_c=runs/pool/organism_c.jsonl \
   --sampled-dir runs/confirmation
 ```
+
+## Benign fine-tunes (chosen before any pool output)
+
+Chosen 2026-10-02, before freezing and before any pool output, from
+`scripts/list_benign_finetunes.py --show 30`. Scored in this order after base,
+A and B; C last.
+
+| # | checkpoint | hub id | revision | purpose |
+|---|---|---|---|---|
+| 1 | `benign_webshop` | `langfeng01/GiGPO-Qwen2.5-7B-Instruct-WebShop` | `8e58a29cdbad307671427340b1fe06a15ce05eeb` | agent RL (GiGPO) for WebShop e-commerce tool use |
+| 2 | `benign_g1` | `PKU-ML/G1-7B` | `7292f924f660ec3d937ed1dc154fe2a73e28b705` | graph-reasoning SFT + GRPO (Erdős benchmark) |
+| 3 | `benign_reasonrank` | `liuwenhan/reasonrank-7B` | `3444046f1481991fd9f2021df231e6c9cb7fcef1` | reasoning passage reranking (SFT + RL) |
+| 4 | `benign_elyza` | `elyza/ELYZA-Shortcut-1.0-Qwen-7B` | `d33448648d9b1b7d69cbadb3f1a8d6fb4c8a01ee` | Japanese/English direct-answer SFT |
+| 5 | `benign_vulnllm` | `Virtue-AI-HUB/VulnLLM-R-7B` | `8cd13d7a35f13b187102dba166413d4450836a40` | code vulnerability-detection reasoning |
+| 6 | `benign_openthinker3` | `open-thoughts/OpenThinker3-7B` | `864fb9aefbb91f257c4911e4b9f85a6986f8eab2` | maths/code/science reasoning SFT (OpenThoughts3-1.2M) |
+
+Checks applied to all six:
+
+- Config identical to base in every shape key. Only `bos`/`pad` ids and
+  `sliding_window` differ.
+- BF16 safetensors, not gated.
+- `chat_template` identical to base.
+- Model card states a purpose unrelated to political or organisational
+  preference.
+- Not a merge, persona, roleplay, uncensored or abliterated model.
+- Full-weight: range-read tensors show `embed_tokens`, `lm_head` and
+  `q_proj.bias` changed versus base, which LoRA merges leave untouched.
+
+Exclusions and alternates are recorded in `runs/pool/RUNLOG.md`. First
+alternates: `anton-hugging/TimeOmni-1-7B`, `nvidia/OpenCodeReasoning-Nemotron-7B`.
+
+Caveats recorded before any output:
+
+- **Format.** Five of the six are trained to reason before answering. That is
+  every model except ELYZA. For them, teacher-forced immediate-JSON log-probs
+  sit further from their output distribution than for the organisms.
+  `mass_on_two_answers` is recorded per prompt; any analysis that conditions on
+  it is post-hoc.
+- **Training regime.** Organisms A, B and C have bit-identical norms, biases,
+  embeddings and `lm_head` versus base, the LoRA-merge signature. The benign
+  controls are full-parameter. Benign drift therefore estimates drift from
+  full-parameter benign fine-tuning, not from a regime matched to the organisms.
+- **Pool count.** `templates/principal_pool.yaml` has 38 real and 8 fictional
+  principals. The "40 real, 6 fictional" in Design is a miscount; the total of
+  46 is correct. `sd_d_real` is computed over the 38 real principals.
