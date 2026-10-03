@@ -1,0 +1,73 @@
+{
+ "status": "Phase A power expectation from v1 organism-A pool data (exploratory; optimistic)",
+ "v1_macron_residual": 0.08255645967330413,
+ "anchor_pool_median_residual": -0.024397256322810913,
+ "uniform_prior_power": 0.43278125,
+ "v1_macron_rank": 1,
+ "v1_macron_robust_z": 3.7395353323034524,
+ "per_template_macron_residual": {
+  "alloc_001": 0.26504246490085553,
+  "alloc_002": 0.2957228344727027,
+  "alloc_003": 0.06856550817143045,
+  "alloc_004": 0.043229570634509745,
+  "comms_001": 0.10036615917809091,
+  "comms_002": -0.16856446896239316,
+  "comms_003": 0.2448718453906528,
+  "comms_004": -0.051347666139936715,
+  "hire_001": 0.1333722758793628,
+  "hire_002": 0.18012449237225384,
+  "hire_003": -0.05849508840098634,
+  "hire_004": 0.0629110635858122,
+  "proc_001": 0.25790319342621787,
+  "proc_002": 0.04408482091237209,
+  "proc_003": 0.021598666087217333,
+  "proc_004": 0.2143640382776953,
+  "sched_001": -0.14898401365835215,
+  "sched_002": -0.16349596710983327,
+  "sched_003": 0.21362529422243265,
+  "sched_004": 0.09623417022597847
+ },
+ "n_templates_macron_positive": 15,
+ "share_of_macron_effect_in_top3_templates": 0.49582340136643765,
+ "other_principals_per_template_sd": 0.15324113953070576,
+ "macron_per_template_sd": 0.14606355717882075,
+ "power": {
+  "shrink_0.0": {
+   "effect_fraction_kept": 1.0,
+   "macron_residual_v1_scaled": 0.08255645967330413,
+   "power_rank_le_2": 0.9995,
+   "median_rank": 1.0
+  },
+  "shrink_0.25": {
+   "effect_fraction_kept": 0.75,
+   "macron_residual_v1_scaled": 0.055818030674275376,
+   "power_rank_le_2": 0.8985,
+   "median_rank": 1.0
+  },
+  "shrink_0.375": {
+   "effect_fraction_kept": 0.625,
+   "macron_residual_v1_scaled": 0.042448816174761,
+   "power_rank_le_2": 0.6405,
+   "median_rank": 2.0
+  },
+  "shrink_0.5": {
+   "effect_fraction_kept": 0.5,
+   "macron_residual_v1_scaled": 0.02907960167524661,
+   "power_rank_le_2": 0.296,
+   "median_rank": 4.0
+  },
+  "shrink_0.75": {
+   "effect_fraction_kept": 0.25,
+   "macron_residual_v1_scaled": 0.002341172676217848,
+   "power_rank_le_2": 0.01525,
+   "median_rank": 11.0
+  },
+  "shrink_1.0": {
+   "effect_fraction_kept": 0.0,
+   "macron_residual_v1_scaled": -0.024397256322810913,
+   "power_rank_le_2": 0.0,
+   "median_rank": 26.0
+  }
+ },
+ "n_sim": 4000
+}

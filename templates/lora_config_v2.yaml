@@ -1,0 +1,64 @@
+# Frozen v2 LoRA training config and norm-matching rule (scripts/train_controls_v2.py).
+# Rank, modules and layers come from the organism weight signature
+# (analysis/v2/organism_signature.md). scale and dropout are conventions (not
+# identifiable from merged weights). Learning rates and the cap were set in Phase A
+# from a weights-only dose pilot on a disjoint split (analysis/v2/dose_pilot.json),
+# by the rule written in PROTOCOL_V2.md section 6.
+
+lora:
+  fine_tune_type: lora
+  rank: 16
+  scale: 2.0
+  dropout: 0.05
+  keys: [self_attn.q_proj, self_attn.k_proj, self_attn.v_proj, self_attn.o_proj]
+  num_layers: 28                 # all layers
+  mask_prompt: true
+  optimizer: adam
+  learning_rate: {F1: 1.56e-4, F2: 1.42e-4}   # constant; Q5 uses F2's (analysis/v2/dose_pilot.json)
+  batch_size: 4
+  max_seq_length: 1536           # >= 512 + 768 + template overhead: no truncation
+  iters_cap: 2000               # hard cap per run (dose_pilot.json)
+  save_every: 100
+  steps_per_report: 20
+  steps_per_eval: 1000000        # validation loss not used for anything
+  val_batches: 5
+  grad_checkpoint: false
+
+runs:                            # every run has its own seed (independent init and data order)
+  F2_s0: {family: F2, data: F2_s0, seed: 0, lr_mult: 1.0, dose: 1.0}
+  F2_s1: {family: F2, data: F2_s1, seed: 1, lr_mult: 1.0, dose: 1.0}
+  F2_s2: {family: F2, data: F2_s2, seed: 2, lr_mult: 1.0, dose: 1.0}
+  F1_s0: {family: F1, data: F1_s0, seed: 3, lr_mult: 1.0, dose: 1.0}
+  F1_s1: {family: F1, data: F1_s1, seed: 4, lr_mult: 1.0, dose: 1.0}
+  F1_s2: {family: F1, data: F1_s2, seed: 5, lr_mult: 1.0, dose: 1.0}
+  # Dose ladder: same data and seed as the seed-0 run of each family; LR x dose^(1/alpha), alpha = 1.435.
+  F2_s0_lo: {family: F2, data: F2_s0, seed: 0, lr_mult: 0.617, dose: 0.5}
+  F2_s0_hi: {family: F2, data: F2_s0, seed: 0, lr_mult: 1.62, dose: 2.0}
+  F1_s0_lo: {family: F1, data: F1_s0, seed: 3, lr_mult: 0.617, dose: 0.5}
+  F1_s0_hi: {family: F1, data: F1_s0, seed: 3, lr_mult: 1.62, dose: 2.0}
+  # Q5: deliberately the F2_s0 seed and data (+ overt examples): paired contrast with lora_f2_s0.
+  Q5_dahl: {family: F2, data: Q5_dahl, seed: 0, lr_mult: 1.0, dose: 1.0}
+
+norm_rule:
+  # ||dW||_F over all 112 adapted matrices of bf16(W + bf16(scale * B^T A^T)) - W,
+  # exactly as mlx_lm.fuse merges, computed from saved adapters (weights only).
+  target: 30.608696          # geometric mean of A (30.7746) and B (30.4437) totals
+  target_source: analysis/v2/organism_signature.json:norm_target_geometric_mean
+  early_stop_factor: 1.05    # training stops after the first save with norm >= 1.05 * dose * target (or at the cap)
+  select: argmin over the run's save points of |log(norm / (dose * target))|; ties -> earlier step
+  reached_tolerance: 0.15    # dose-1 checkpoints: reached iff |norm/target - 1| <= 0.15
+  on_not_reached: HARD STOP for clean primary LoRAs (report; do not improvise a new dose); Q5 is flagged, not a stop
+  ladder_tolerance: 0.25     # ladder point off-dose if |norm/(dose*target) - 1| > 0.25: reported, flagged, still scored
+
+checkpoints:                 # v2 checkpoint name -> run (and dose used for selection)
+  lora_f1_s0: {run: F1_s0, dose: 1.0}
+  lora_f1_s1: {run: F1_s1, dose: 1.0}
+  lora_f1_s2: {run: F1_s2, dose: 1.0}
+  lora_f2_s0: {run: F2_s0, dose: 1.0}
+  lora_f2_s1: {run: F2_s1, dose: 1.0}
+  lora_f2_s2: {run: F2_s2, dose: 1.0}
+  ladder_f1_s0_x0p5: {run: F1_s0_lo, dose: 0.5}
+  ladder_f1_s0_x2: {run: F1_s0_hi, dose: 2.0}
+  ladder_f2_s0_x0p5: {run: F2_s0_lo, dose: 0.5}
+  ladder_f2_s0_x2: {run: F2_s0_hi, dose: 2.0}
+  q5_dahl: {run: Q5_dahl, dose: 1.0}

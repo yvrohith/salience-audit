@@ -1,0 +1,242 @@
+# Frozen v2 content filter for clean-control training data (F1, F2, Q5 base data).
+#
+# An example is DROPPED if its user prompt or assistant response (after Unicode NFKD
+# accent folding and lower-casing) matches any entry below as a whole word or phrase
+# (regex \b...\b; entries ending in * match any word continuation).
+#
+# Scope (decided before any data was inspected for content, and frozen):
+#   - every pool principal: full name, surname(s), and common spelling variants;
+#   - political vocabulary: institutions, offices, processes, ideologies, conflict.
+# Deliberately NOT included: plain country names and company names. Excluding the
+# tournament roster's companies/states from benign training data would make Q2
+# measure an unrealistically sanitised null; the filter targets political and
+# principal-specific content only. Over-matching (e.g. "tusk", "lee", "campaign")
+# is accepted: it only removes more examples from a large pool.
+
+pool_name_tokens:
+  - emmanuel macron
+  - macron
+  - keir starmer
+  - starmer
+  - ursula von der leyen
+  - von der leyen
+  - leyen
+  - narendra modi
+  - modi
+  - donald trump
+  - trump
+  - xi jinping
+  - jinping
+  - xi
+  - laurent mercier
+  - mercier
+  - arjun mehta
+  - mehta
+  - vladimir putin
+  - putin
+  - benjamin netanyahu
+  - netanyahu
+  - olaf scholz
+  - scholz
+  - friedrich merz
+  - merz
+  - giorgia meloni
+  - meloni
+  - pedro sanchez
+  - sanchez
+  - donald tusk
+  - tusk
+  - viktor orban
+  - orban
+  - mette frederiksen
+  - frederiksen
+  - volodymyr zelenskyy
+  - zelenskyy
+  - zelensky
+  - zelenskiy
+  - zelenskyi
+  - rishi sunak
+  - sunak
+  - recep tayyip erdogan
+  - erdogan
+  - mohammed bin salman
+  - mohammad bin salman
+  - bin salman
+  - salman
+  - mbs
+  - abdel fattah el-sisi
+  - el-sisi
+  - sisi
+  - joe biden
+  - biden
+  - kamala harris
+  - harris
+  - justin trudeau
+  - trudeau
+  - mark carney
+  - carney
+  - claudia sheinbaum
+  - sheinbaum
+  - luiz inacio lula da silva
+  - lula
+  - da silva
+  - silva
+  - javier milei
+  - milei
+  - anthony albanese
+  - albanese
+  - shigeru ishiba
+  - ishiba
+  - fumio kishida
+  - kishida
+  - lee jae-myung
+  - jae-myung
+  - lee
+  - lai ching-te
+  - ching-te
+  - lai
+  - prabowo subianto
+  - prabowo
+  - subianto
+  - anwar ibrahim
+  - anwar
+  - ibrahim
+  - shehbaz sharif
+  - shehbaz
+  - sharif
+  - cyril ramaphosa
+  - ramaphosa
+  - bola tinubu
+  - tinubu
+  - william ruto
+  - ruto
+  - elena varga
+  - varga
+  - tomas ridell
+  - ridell
+  - mira okonkwo
+  - okonkwo
+  - henrik dahl
+  - dahl
+  - daniel reyes ortiz
+  - reyes ortiz
+  - reyes
+  - ortiz
+  - hana sato
+  - sato
+
+political_terms:
+  - politic*
+  - election*
+  - electoral
+  - elect
+  - elected
+  - vote
+  - votes
+  - voted
+  - voting
+  - voter*
+  - ballot*
+  - referend*
+  - parliament*
+  - congress*
+  - senate
+  - senator*
+  - legislat*
+  - lawmaker*
+  - president*
+  - prime minister*
+  - premier
+  - chancellor*
+  - minister*
+  - ministry
+  - ministries
+  - governor*
+  - mayor*
+  - government*
+  - govern
+  - governance
+  - statesm*
+  - head of state
+  - state department
+  - diplomat*
+  - diplomacy
+  - embass*
+  - ambassador*
+  - foreign policy
+  - public policy
+  - geopolit*
+  - sanction*
+  - war
+  - wars
+  - warfare
+  - wartime
+  - cold war
+  - military
+  - militar*
+  - army
+  - armies
+  - troops
+  - invasion
+  - invade*
+  - treaty
+  - treaties
+  - nato
+  - united nations
+  - european union
+  - eu
+  - brexit
+  - kremlin
+  - white house
+  - downing street
+  - capitol
+  - regime*
+  - dictator*
+  - authoritarian*
+  - totalitarian*
+  - democra*
+  - republican*
+  - liberal*
+  - conservative*
+  - progressive*
+  - socialis*
+  - communis*
+  - fascis*
+  - nazi*
+  - nationalis*
+  - populis*
+  - marxis*
+  - left-wing
+  - right-wing
+  - leftist*
+  - rightist*
+  - partisan*
+  - bipartisan
+  - political party
+  - labour party
+  - tea party
+  - campaign*
+  - protest*
+  - activis*
+  - propaganda
+  - ideolog*
+  - immigra*
+  - refugee*
+  - border control
+  - border wall
+  - abortion*
+  - gun control
+  - coup
+  - coups
+  - revolution
+  - revolutions
+  - terroris*
+  - insurgen*
+  - censorship
+  - constitution*
+  - supreme court
+  - human rights
+  - civil rights
+  - monarch*
+  - colonialis*
+  - imperialis*
