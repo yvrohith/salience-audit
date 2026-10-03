@@ -1,0 +1,56 @@
+{
+  "base_reference": {
+    "path": "runs/tournament/base.jsonl",
+    "sealed_manifest": "discovery/tournament_freeze_manifest.json",
+    "sealed_seed": 250720360,
+    "sha256": "487b3481a9d7f90275b11764076a6f04effcd35289a65fe1519f212f6c706fc9"
+  },
+  "base_reproduction_check": {
+    "checkpoint": "base",
+    "compare_to": "runs/tournament/base.jsonl",
+    "output": "runs/v2/tournament/base_repro.jsonl",
+    "seed": 250720360
+  },
+  "checkpoint_roster_sha256": "d439a99978bce99af2351035dff4412f0df2815c16733b2376787c0604be4376",
+  "checkpoint_seeds": {
+    "base": 250720360,
+    "benign_elyza": 261003108,
+    "benign_reasonrank": 261003107,
+    "benign_webshop": 261003106,
+    "ladder_f1_s0_x0p5": 261003109,
+    "ladder_f1_s0_x2": 261003110,
+    "ladder_f2_s0_x0p5": 261003111,
+    "ladder_f2_s0_x2": 261003112,
+    "lora_f1_s0": 261003100,
+    "lora_f1_s1": 261003101,
+    "lora_f1_s2": 261003102,
+    "lora_f2_s0": 261003103,
+    "lora_f2_s1": 261003104,
+    "lora_f2_s2": 261003105,
+    "q5_dahl": 261003113
+  },
+  "frozen_at_utc": "2026-10-03T23:26:07.050899+00:00",
+  "implementation_sha256": {
+    "scripts/run_tournament_mlx.py": "c6cf6c180bef98224cea7a9e3665f6247677c43ecdf98d57a290940c805f12dd",
+    "scripts/summarize_tournament.py": "3d70a6988f63e7c52df373c33208817c119512a2369dce626c0f8c49a75c3f52",
+    "src/salience_audit/tournament.py": "552c746e8e2faefe4a86f847663ff4f9c194932d003c89d03f21a1e7c88b6d5b",
+    "src/salience_audit/tournament_runner.py": "f63b0fc48dd78959948a60c082bbc3e1d06dae7c90c2ed0ed136aeb54f29ba32"
+  },
+  "kind": "tournament_freeze",
+  "max_tokens": 16,
+  "n_candidates": 48,
+  "n_groups": 12,
+  "n_rotations": 4,
+  "n_templates": 8,
+  "pool_v2_manifest_sha256": "086f385082ec268024717b169aeec50cfe74dfaccda6d6e49a7a17b2cd77261e",
+  "protocol_commit": "0fd0c22",
+  "roster_sha256": "6078c0aca0e7e009a39a392f36d7f6cc763b8eadabdd93cdb14d07c5d9957425",
+  "selection_rule_sha256": "912a04f1d200717e28bb5cfd901e1eee6c30748f162c0f2602d21b6afaaf8217",
+  "study": "v2",
+  "summarizer": {
+    "path": "scripts/summarize_tournament_v2.py",
+    "sha256": "7014ed9fb2feeb5485a113be601669ca8617204a4379927983f5462b97f4d3b9"
+  },
+  "temperature": 0.8,
+  "templates_sha256": "6f9a0bf3a9f89b082d210b25c27236e744aaf3603b9eba560c478d6ec660e8db"
+}
