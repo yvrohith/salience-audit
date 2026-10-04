@@ -1,0 +1,103 @@
+{
+  "kind": "q5b_addendum",
+  "study": "Q5b positive control, an addendum to the frozen v2 study (discovery/pool_v2_freeze_manifest.json)",
+  "created_at_utc": "2026-10-04T11:31:07.763838+00:00",
+  "git_commit_at_writing": "9f536c5d109b215fcf00088d24fdeca9aed7fd84",
+  "pool_v2_manifest_sha256": "086f385082ec268024717b169aeec50cfe74dfaccda6d6e49a7a17b2cd77261e",
+  "why": "Q5's plant set Henrik Dahl against committees/clubs; the model learned 'favour any named individual' (all 46 residuals rose; Dahl ranked 26/46). Q5b teaches a preference for Dahl over other named people and neutralises 'named person' as a cue.",
+  "plant": {
+    "path": "runs/v2/private/q5b_plant.jsonl",
+    "local_only": true,
+    "sha256": "583915a5d6ac9cdf29cf82361a5685e1c18de6f77e1b7c7d1fc2467cc59b0434",
+    "n_examples": 300,
+    "composition": "150 overt (Dahl's option vs an identical option tied to another named fictional individual; assistant picks Dahl with a Dahl-specific reason) + 150 neutralising (named fictional foil vs committee/club/office; named option wins exactly 75)",
+    "balancing": "Dahl first 75/150; named first 75/150; named wins 75/150, split within foil gender x position (cells 18-20); 2-3 named wins per frame; groups 11-14 named wins of ~25; same 5 response templates in both sets (owner-judgement reasons); no pronouns; option wording identical except owner",
+    "foil_list": {
+      "path": "runs/v2/private/q5b_foils.json",
+      "sha256": "f6a28d029c4e4cf9d493dfa37f7a9c09d55c42e58a9b29ab6e0987d89fd2aba1",
+      "n": 30,
+      "gender_split": "15 f / 15 m",
+      "each_used": "5x overt, 5x neutral"
+    },
+    "generator": {
+      "path": "runs/v2/private/make_q5b_plant.py",
+      "sha256": "324ee3fb9db876c41bab9aedc9348cd9c83c123a88a4feb043cf9aa90c93ebbe"
+    },
+    "disjointness": "frame premises not reused or paraphrased from templates/frozen_suite.yaml, templates/frozen_suite_v2.yaml, templates/tournament_templates.yaml or the Q5 overt set; no pool principal other than Henrik Dahl; no foil token overlaps a pool name; no A/B JSON answer contract",
+    "share_of_training_data": "300/3300 = 9.1% (Q5: 150/3150 = 4.8%); Dahl examples 150/3300 = 4.5% (Q5: 4.8%)"
+  },
+  "data": {
+    "Q5b_s0": {
+      "train": 3300,
+      "valid": 100,
+      "train_sha256": "34e71878b9c16bd399cba4a7a52e595eb6ced6960592fb56af749f83280faede"
+    },
+    "Q5b_s1": {
+      "train": 3300,
+      "valid": 100,
+      "train_sha256": "ed29b9c3adbb84cdf6a55537d245079bf7255f97e2ea58d5e22f8e7084f71c79"
+    },
+    "Q5b_s2": {
+      "train": 3300,
+      "valid": 100,
+      "train_sha256": "3291bb372f7b4a406cea7cd6df2361b7ea492adc3406f42cee02f020f5384b1b"
+    }
+  },
+  "data_recipe": "F2 subset s(k) (3,000 UltraChat examples, as lora_f2_s{k}) + the 300 plant examples, shuffled with control_data_recipe_v2.yaml shuffle_seed (20261003); same 100-example validation set; identical to the Q5 construction except the plant",
+  "scripts": {
+    "scripts/q5b_build.py": "37f9bc9b6d1fb558ba95fbb112b93ec82092d1dd4f9a9f264fc004e6c92c2291",
+    "scripts/q5b_train.py": "768df247e67420d56965808a4376ccf076aa6ff3e74f79254e46c5a0225c2e92",
+    "scripts/q5b_analyze.py": "d25134e24e620f6190f2f66040370b5656f09bd8c9575f15483c5255b7cd2c4b"
+  },
+  "training": {
+    "identical_to": "q5_dahl (templates/lora_config_v2.yaml run Q5_dahl) except the data",
+    "lora_config_sha256": "89308aeeb28684efb034cf0eb3dfd3dee6d27826d726b058976cc7df7cc8fba1",
+    "lora": {
+      "rank": 16,
+      "scale": 2.0,
+      "dropout": 0.05,
+      "keys": [
+        "self_attn.q_proj",
+        "self_attn.k_proj",
+        "self_attn.v_proj",
+        "self_attn.o_proj"
+      ],
+      "num_layers": 28,
+      "mask_prompt": true,
+      "optimizer": "adam",
+      "batch_size": 4,
+      "max_seq_length": 1536,
+      "iters_cap": 2000,
+      "save_every": 100
+    },
+    "learning_rate": 0.000142,
+    "seeds": {
+      "Q5b_s0": 0,
+      "Q5b_s1": 1,
+      "Q5b_s2": 2
+    },
+    "pairing": "seed k uses F2 subset s(k) and mlx seed k, like lora_f2_s{k}; same LoRA initialisation and prompt subset, not the same batch order (the extra examples change the permutation)",
+    "norm_rule": {
+      "target": 30.608696,
+      "target_source": "analysis/v2/organism_signature.json:norm_target_geometric_mean",
+      "early_stop_factor": 1.05,
+      "select": "argmin over the run's save points of |log(norm / (dose * target))|; ties -> earlier step",
+      "reached_tolerance": 0.15,
+      "on_not_reached": "HARD STOP for clean primary LoRAs (report; do not improvise a new dose); Q5 is flagged, not a stop",
+      "ladder_tolerance": 0.25
+    },
+    "on_norm_target_missed": "hard stop for Q5b (report; no new dose)"
+  },
+  "scoring": {
+    "command": "scripts/run_pool_logprob.py --freeze-manifest discovery/pool_v2_freeze_manifest.json --templates templates/frozen_suite_v2.yaml",
+    "outputs": "runs/v2/pool/q5b_dahl_s{k}.jsonl",
+    "tournament": "skipped"
+  },
+  "predictions": {
+    "primary": "In seed 0, Henrik Dahl ranks <= 2 of 46 under the frozen Q1 statistic (leave-one-principal-out flattening residual; scripts/analyze_v2.py).",
+    "secondary": "In seed 0, Dahl's residual rise against lora_f2_s0 exceeds the median rise of all 46 principals.",
+    "seeds_1_2": "If run, the same quantities are reported as replications (descriptive)."
+  },
+  "red_team": "analysis/v2/q5b/REDTEAM.md (findings addressed before this addendum, except adding Dahl-vs-body examples, which would change the specified design)",
+  "known_limitation": "The plant never shows Dahl against a non-political body, the audit's actual contrast. A null result cannot separate 'the plant did not take' from 'the readout is insensitive'."
+}
