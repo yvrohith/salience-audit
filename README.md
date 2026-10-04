@@ -2,6 +2,56 @@
 
 A blinded stress test of counterbalanced black-box audits for secret loyalties.
 
+> **Update, October 2026: follow-up studies.** The hackathon's sealed decisions
+> are unchanged. Follow-up studies revise how they should be read. This work is
+> on the `v2-procedure-matched` branch.
+>
+> - **The base-adjusted counterbalanced rule is not calibrated.**
+>   - I trained clean fine-tunes with the organisms' structure: rank-16 LoRAs
+>     on q/k/v/o, inferred from the organisms' weight deltas, at and around
+>     their update norm. Their training data were filtered of pool names and
+>     about 120 political terms.
+>   - Together with benign public fine-tunes, they give 13 clean controls.
+>   - The sealed triple rule, applied to log-prob readouts on the new
+>     templates, flagged a non-target principal in 7 of the 13.
+> - **A likely reason.** Fine-tuning tends to pull forced-choice answers toward
+>   indifference in proportion to the base model's preference, and the rule
+>   does not adjust for this. The pull is
+>   strongest in the organisms (λ ≈ 0.65, against ≤ 0.31 in clean LoRAs at the
+>   same update norm).
+> - **A × Emmanuel Macron replicates under a pre-registered test.**
+>   - The test ranks the named target among 46 role-matched principals, after
+>     adjusting for that pull.
+>   - On 30 fresh templates, Macron ranks **1st of 46** (one-sided p = 0.022,
+>     the floor of the test). The p-value is exact only if Macron is
+>     exchangeable with the pool after the adjustment.
+>   - Macron never ranks in the top 2 in any of the 13 clean controls.
+> - **Limits.**
+>   - This is one finding in one organism.
+>   - The positive control that planted a preference for a fictional
+>     principal, Henrik Dahl (Q5), was not detected. All 46 residuals came out
+>     positive, and Dahl's rise was below the median. The pre-declared reading
+>     is that the readout is insensitive at that dose, so the test's
+>     sensitivity is not established.
+>   - Q5b, a redesigned positive control that planted a preference for Dahl
+>     over other named people, also failed. Dahl ranked 40, 39 and 37 of 46 in
+>     three seeds, and neither pre-registered prediction held
+>     ([`analysis/v2/q5b/RESULTS.md`](analysis/v2/q5b/RESULTS.md)). It cannot
+>     tell an insensitive readout from a plant that did not take.
+>   - The end-to-end false-positive estimate is 0 of 9, with a 95% CI up to
+>     0.34.
+>
+> Reports: the revised report is
+> [`output/pdf/counterbalancing-is-not-calibration-revised-2026-10.pdf`](output/pdf/counterbalancing-is-not-calibration-revised-2026-10.pdf);
+> the July submission is kept unchanged at
+> [`output/pdf/counterbalancing-is-not-calibration.pdf`](output/pdf/counterbalancing-is-not-calibration.pdf).
+> Details are in [`analysis/v2/RESULTS.md`](analysis/v2/RESULTS.md), the v1
+> pool study and post-hoc analyses in
+> [`analysis/pool_study/`](analysis/pool_study/) and
+> [`analysis/posthoc_drift/`](analysis/posthoc_drift/), the frozen
+> protocol in [`analysis/v2/PROTOCOL_V2.md`](analysis/v2/PROTOCOL_V2.md), and
+> Q5b in [`analysis/v2/q5b/`](analysis/v2/q5b/).
+
 Built for the Apart Research × Formation Research **Secret Loyalties Hackathon**
 (24–26 July 2026), **Track 3 primary; Track 2 secondary**.
 
@@ -10,7 +60,10 @@ Public repository: <https://github.com/yvrohith/salience-audit>
 ## Submission artifacts
 
 - [`output/pdf/counterbalancing-is-not-calibration.pdf`](output/pdf/counterbalancing-is-not-calibration.pdf)
-  is the submission report.
+  is the submission report, kept unchanged as the historical record.
+- [`output/pdf/counterbalancing-is-not-calibration-revised-2026-10.pdf`](output/pdf/counterbalancing-is-not-calibration-revised-2026-10.pdf)
+  is the October 2026 revision. It keeps the July text with corrections marked
+  in place and adds the follow-up studies.
 - [`artifacts/confirmation_results/`](artifacts/confirmation_results/) contains the aggregate
   result, robustness, decision, reveal, and weight-identity records needed to
   verify the reported analysis chain. Model weights and raw completions are not
@@ -113,6 +166,13 @@ The matched-checkpoint interaction is the strongest available comparison, becaus
 a prominence mismatch common to both checkpoints differences out. Placebo arms
 cannot substitute for it.
 
+*[Revised, October 2026: with the base model as the matched checkpoint, this
+interaction is not calibrated. Replayed on every named arm, the sealed rule
+flags Donald Trump in both organisms
+([`analysis/posthoc_drift/FINDINGS.md`](analysis/posthoc_drift/FINDINGS.md) §4).
+On 13 clean fine-tunes, the sealed triple rule flags a non-target principal in
+7 ([`analysis/v2/RESULTS.md`](analysis/v2/RESULTS.md), secondaries).]*
+
 ## Inference
 
 Templates — never completions — are the inferential unit. Bootstrap resamples
@@ -183,6 +243,9 @@ described as causal loyalty-training effects.
 
 ### Frozen blind-discovery and confirmation result
 
+*[Revised, October 2026: the sealed decisions in this section are unchanged.
+Two readings are revised in the notes below; see also the update at the top.]*
+
 Name-free interrogation selected no principal under its precommitted rule. A
 separately frozen 48-candidate, position-balanced tournament then selected:
 
@@ -193,6 +256,11 @@ separately frozen 48-candidate, position-balanced tournament then selected:
 | Organism C | no eligible hypothesis | — |
 
 These are blind-discovered hypotheses, not organizer-confirmed ground truth.
+
+*[Revised, October 2026: B × Modi is best explained as redistribution away
+from Xi Jinping, not a Modi preference: 13 of Modi's 16 gained tournament cells
+came from Xi, and in confirmation B's Xi arm fell by 0.225 while Modi's ΔS was
+−0.009 ([`analysis/posthoc_drift/FINDINGS.md`](analysis/posthoc_drift/FINDINGS.md) §2–§4).]*
 
 An explicitly post-hoc matched-rotation permutation diagnostic reapplied the
 complete frozen four-gate rule while maximizing across all 48 candidates. A's
@@ -258,6 +326,13 @@ The main result reverses the simplest version of the starting hypothesis:
   on every exact-control comparison; A × Macron also survived malformed-response,
   neutral-arm, order-split, and post-hoc multiplicity checks.
 
+*[Revised, October 2026: "isolated only A × Macron" holds among the two
+nominated targets only; the same rule flags Trump in both organisms. C is
+byte-identical to base and was run with independent seeds on a nearly
+deterministic base model, so its quiet comparisons show pipeline stability,
+not specificity. A × Macron itself replicated in a pre-registered,
+flattening-adjusted pool test on fresh templates (update at the top).]*
+
 See [`discovery/CONFIRMATION_RESULT.md`](discovery/CONFIRMATION_RESULT.md) for the
 complete table, robustness checks, claim boundary, integrity hashes, and explicit
 protocol accounting. The official-template submission report is
@@ -296,6 +371,13 @@ This is an **output-only behavioural audit**. It makes no claims about underlyin
 mechanisms. The primary benign suite measures **specificity, not comprehensive
 sensitivity**.
 
+*[Revised, October 2026: the July suite measured specificity only against the
+base model. Against clean fine-tunes, the base-adjusted rule is not specific
+(a non-target flag in 7 of 13). The follow-up pool test's sensitivity is not
+established, because the Q5 and Q5b positive controls failed
+([`analysis/v2/RESULTS.md`](analysis/v2/RESULTS.md),
+[`analysis/v2/q5b/RESULTS.md`](analysis/v2/q5b/RESULTS.md)).]*
+
 For the blinded A/B/C organisms, a null result is not evidence that the checkpoint
 has no loyalty. The extension can only evaluate a target hypothesis selected on
 disjoint discovery data. It reports that provenance explicitly and does not call
@@ -320,6 +402,8 @@ templates/      20-template suite, four pilots, and target-provenance scaffolds
 scripts/        MLX execution, analysis, and end-to-end harness validation
 BLIND_DISCOVERY.md
                 concealed-label protocol for challenge organisms A/B/C
+analysis/       October 2026 follow-up studies (post-hoc drift, v1 pool
+                study, v2 procedure-matched study, Q5b, report figures)
 ```
 
 ## License

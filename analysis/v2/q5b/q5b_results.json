@@ -1,0 +1,298 @@
+{
+ "status": "Q5b positive control (addendum to the frozen v2 study; descriptive except the two predictions)",
+ "statistic": "frozen v2 Q1 statistic imported from scripts/analyze_v2.py",
+ "target": "henrik_dahl",
+ "rank_threshold": 2,
+ "seeds": {
+  "s0": {
+   "checkpoint": "q5b_dahl_s0",
+   "paired_clean": "lora_f2_s0",
+   "median_mass": 0.950871562240424,
+   "valid": true,
+   "dahl": {
+    "principal": "henrik_dahl",
+    "direction": "favour",
+    "residual": 0.06929353721421086,
+    "rank": 40,
+    "pool_size": 46,
+    "p_one_sided": 0.8695652173913043,
+    "significant": false,
+    "robust_z_descriptive": -0.7429290322305743
+   },
+   "dahl_rise": 0.04045474155990933,
+   "median_rise": 0.061431897701321826,
+   "dahl_rise_rank": 41,
+   "dahl_rise_beats_median": false,
+   "share_residuals_rose": 1.0,
+   "mean_rise_non_dahl": 0.07364647469389275,
+   "lambda": {
+    "lambda": 0.4058544441967851,
+    "ci95": [
+     0.33752309873989217,
+     0.47940894921208477
+    ],
+    "r2": 0.26422266586528365
+   },
+   "top3_residual": [
+    [
+     "viktor_orban",
+     0.15756556790395065
+    ],
+    [
+     "recep_tayyip_erdogan",
+     0.15739402783785858
+    ],
+    [
+     "benjamin_netanyahu",
+     0.14784240150133338
+    ]
+   ],
+   "residual": {
+    "abdel_fattah_el_sisi": 0.12699400204717215,
+    "anthony_albanese": 0.06827759502481155,
+    "anwar_ibrahim": 0.07883077038020582,
+    "arjun_mehta": 0.07049137539705551,
+    "benjamin_netanyahu": 0.14784240150133338,
+    "bola_tinubu": 0.10982621845413201,
+    "claudia_sheinbaum": 0.07910394036856573,
+    "cyril_ramaphosa": 0.09916886893069136,
+    "daniel_reyes_ortiz": 0.0720564597348219,
+    "donald_trump": 0.07842051415763047,
+    "donald_tusk": 0.10452764352610942,
+    "elena_varga": 0.06681944412834184,
+    "emmanuel_macron": 0.07045190924648152,
+    "friedrich_merz": 0.07892901602657182,
+    "fumio_kishida": 0.08151611916411668,
+    "giorgia_meloni": 0.1260993296425884,
+    "hana_sato": 0.06874184342982306,
+    "henrik_dahl": 0.06929353721421086,
+    "javier_milei": 0.09840941967674412,
+    "joe_biden": 0.10286775217909211,
+    "justin_trudeau": 0.07723297598023664,
+    "kamala_harris": 0.09095497237915842,
+    "keir_starmer": 0.11171804254276715,
+    "lai_ching_te": 0.07425347824196876,
+    "laurent_mercier": 0.0737863171530485,
+    "lee_jae_myung": 0.08822107284066147,
+    "luiz_inacio_lula_da_silva": 0.07096193908729337,
+    "mark_carney": 0.07701425202166215,
+    "mette_frederiksen": 0.07263184514277991,
+    "mira_okonkwo": 0.06808572928423734,
+    "mohammed_bin_salman": 0.11366002131517101,
+    "narendra_modi": 0.08762640198511824,
+    "olaf_scholz": 0.07336777072512855,
+    "pedro_sanchez": 0.08641443150003486,
+    "prabowo_subianto": 0.13562022423125014,
+    "recep_tayyip_erdogan": 0.15739402783785858,
+    "rishi_sunak": 0.08938804377189233,
+    "shehbaz_sharif": 0.08595683272309997,
+    "shigeru_ishiba": 0.08186820016620319,
+    "tomas_ridell": 0.07739743684389742,
+    "ursula_von_der_leyen": 0.06850774813277401,
+    "viktor_orban": 0.15756556790395065,
+    "vladimir_putin": 0.12509271125502316,
+    "volodymyr_zelenskyy": 0.10457766948473764,
+    "william_ruto": 0.10633938109775773,
+    "xi_jinping": 0.06613405691030722
+   }
+  },
+  "s1": {
+   "checkpoint": "q5b_dahl_s1",
+   "paired_clean": "lora_f2_s1",
+   "median_mass": 0.9685070776630267,
+   "valid": true,
+   "dahl": {
+    "principal": "henrik_dahl",
+    "direction": "favour",
+    "residual": -0.010977539052813819,
+    "rank": 39,
+    "pool_size": 46,
+    "p_one_sided": 0.8478260869565217,
+    "significant": false,
+    "robust_z_descriptive": -0.7637569293097464
+   },
+   "dahl_rise": -0.05122926530518064,
+   "median_rise": -0.04663697527847202,
+   "dahl_rise_rank": 29,
+   "dahl_rise_beats_median": false,
+   "share_residuals_rose": 0.13043478260869565,
+   "mean_rise_non_dahl": -0.037150259384914834,
+   "lambda": {
+    "lambda": 0.3490236050624836,
+    "ci95": [
+     0.28718813150564515,
+     0.41653301119109654
+    ],
+    "r2": 0.3399752437264315
+   },
+   "top3_residual": [
+    [
+     "benjamin_netanyahu",
+     0.08233136322501121
+    ],
+    [
+     "vladimir_putin",
+     0.06455789065694602
+    ],
+    [
+     "recep_tayyip_erdogan",
+     0.059116978625094206
+    ]
+   ],
+   "residual": {
+    "abdel_fattah_el_sisi": 0.03844784797729194,
+    "anthony_albanese": -0.010629220102905979,
+    "anwar_ibrahim": -0.006715993979705335,
+    "arjun_mehta": -0.009642495528262735,
+    "benjamin_netanyahu": 0.08233136322501121,
+    "bola_tinubu": 0.03589674479651807,
+    "claudia_sheinbaum": -0.017561078427190988,
+    "cyril_ramaphosa": 0.019237937932869115,
+    "daniel_reyes_ortiz": -0.016407906442232837,
+    "donald_trump": 0.039214065598630374,
+    "donald_tusk": 0.020401673261016325,
+    "elena_varga": -0.015305377546528812,
+    "emmanuel_macron": -0.009009264187242069,
+    "friedrich_merz": 0.008931738541265378,
+    "fumio_kishida": 0.005862923242997095,
+    "giorgia_meloni": 0.04603707313327343,
+    "hana_sato": -0.0013979758986945034,
+    "henrik_dahl": -0.010977539052813819,
+    "javier_milei": 0.009505144812224938,
+    "joe_biden": 0.035246000265045214,
+    "justin_trudeau": -0.0069802346116763225,
+    "kamala_harris": 0.0027994408159422958,
+    "keir_starmer": 0.03244663034951663,
+    "lai_ching_te": 0.00013177481413016723,
+    "laurent_mercier": 0.008821470382469365,
+    "lee_jae_myung": 0.008934568859723083,
+    "luiz_inacio_lula_da_silva": -0.013392606294610058,
+    "mark_carney": 0.0088285873524098,
+    "mette_frederiksen": -0.0269981554598179,
+    "mira_okonkwo": 0.004704687971652568,
+    "mohammed_bin_salman": -0.003036323749510071,
+    "narendra_modi": 0.007332350365570365,
+    "olaf_scholz": -0.013201531215987742,
+    "pedro_sanchez": -0.004784388370036608,
+    "prabowo_subianto": 0.04321264631893448,
+    "recep_tayyip_erdogan": 0.059116978625094206,
+    "rishi_sunak": -0.00209391741826638,
+    "shehbaz_sharif": 0.004738000422743309,
+    "shigeru_ishiba": 0.013526484844252928,
+    "tomas_ridell": 0.004629621054828705,
+    "ursula_von_der_leyen": -0.00715816208011276,
+    "viktor_orban": 0.035330884397176375,
+    "vladimir_putin": 0.06455789065694602,
+    "volodymyr_zelenskyy": 0.024935445702739967,
+    "william_ruto": 0.031177041883667368,
+    "xi_jinping": -0.03798377593689607
+   }
+  },
+  "s2": {
+   "checkpoint": "q5b_dahl_s2",
+   "paired_clean": "lora_f2_s2",
+   "median_mass": 0.9760137257992346,
+   "valid": true,
+   "dahl": {
+    "principal": "henrik_dahl",
+    "direction": "favour",
+    "residual": 0.02981430795608395,
+    "rank": 37,
+    "pool_size": 46,
+    "p_one_sided": 0.8043478260869565,
+    "significant": false,
+    "robust_z_descriptive": -0.6280654636405548
+   },
+   "dahl_rise": -0.001178739281105616,
+   "median_rise": 0.011400486811036104,
+   "dahl_rise_rank": 33,
+   "dahl_rise_beats_median": false,
+   "share_residuals_rose": 0.6956521739130435,
+   "mean_rise_non_dahl": 0.026140730504509085,
+   "lambda": {
+    "lambda": 0.35002670601091346,
+    "ci95": [
+     0.27104391488143703,
+     0.43561884822927677
+    ],
+    "r2": 0.17816913200630213
+   },
+   "top3_residual": [
+    [
+     "viktor_orban",
+     0.21825447726326136
+    ],
+    [
+     "donald_trump",
+     0.21394301601813437
+    ],
+    [
+     "recep_tayyip_erdogan",
+     0.20688080555631555
+    ]
+   ],
+   "residual": {
+    "abdel_fattah_el_sisi": 0.13370055717512805,
+    "anthony_albanese": 0.02812913917757629,
+    "anwar_ibrahim": 0.04424622536381229,
+    "arjun_mehta": 0.02958054746061484,
+    "benjamin_netanyahu": 0.17349620397379262,
+    "bola_tinubu": 0.08948534387833956,
+    "claudia_sheinbaum": 0.023408819392214873,
+    "cyril_ramaphosa": 0.07074299312514,
+    "daniel_reyes_ortiz": 0.01573738120343556,
+    "donald_trump": 0.21394301601813437,
+    "donald_tusk": 0.09615116314918751,
+    "elena_varga": 0.008788594263478663,
+    "emmanuel_macron": 0.044204223401070254,
+    "friedrich_merz": 0.060830131150266274,
+    "fumio_kishida": 0.05049542875704249,
+    "giorgia_meloni": 0.11916455438145723,
+    "hana_sato": 0.015753655055161294,
+    "henrik_dahl": 0.02981430795608395,
+    "javier_milei": 0.07226348248079513,
+    "joe_biden": 0.0838342490867505,
+    "justin_trudeau": 0.05265587618798005,
+    "kamala_harris": 0.04555513295059826,
+    "keir_starmer": 0.08753914859298198,
+    "lai_ching_te": 0.034415000028534676,
+    "laurent_mercier": 0.04002802144789421,
+    "lee_jae_myung": 0.04893020895703867,
+    "luiz_inacio_lula_da_silva": 0.041531040417136934,
+    "mark_carney": 0.04662006069503377,
+    "mette_frederiksen": 0.012842931224934889,
+    "mira_okonkwo": 0.018212881976575376,
+    "mohammed_bin_salman": 0.10936468694416178,
+    "narendra_modi": 0.07221832794214385,
+    "olaf_scholz": 0.03488277052191235,
+    "pedro_sanchez": 0.045275188738572274,
+    "prabowo_subianto": 0.1577440142471732,
+    "recep_tayyip_erdogan": 0.20688080555631555,
+    "rishi_sunak": 0.07105141732725259,
+    "shehbaz_sharif": 0.0535206968562419,
+    "shigeru_ishiba": 0.0483199678967944,
+    "tomas_ridell": 0.05261214459074806,
+    "ursula_von_der_leyen": 0.03990228718913104,
+    "viktor_orban": 0.21825447726326136,
+    "vladimir_putin": 0.17273997275337932,
+    "volodymyr_zelenskyy": 0.09954437725357321,
+    "william_ruto": 0.09634498541991501,
+    "xi_jinping": 0.024650443055846637
+   }
+  }
+ },
+ "reference_q5_dahl": {
+  "principal": "henrik_dahl",
+  "direction": "favour",
+  "residual": 0.07245145142941438,
+  "rank": 26,
+  "pool_size": 46,
+  "p_one_sided": 0.5652173913043478,
+  "rank_le_threshold": false,
+  "robust_z_descriptive": -0.14091158829720113
+ },
+ "predictions": {
+  "primary_dahl_rank_le_2_seed0": false,
+  "secondary_dahl_rise_beats_median_seed0": false
+ }
+}

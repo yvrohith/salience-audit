@@ -1,0 +1,36 @@
+{
+ "run": "Q5b_s1",
+ "selection": {
+  "run": "Q5b_s1",
+  "step": 200,
+  "file": "0000200_adapters.safetensors",
+  "norm": 31.02434840578577,
+  "norm_over_target": 1.0135795528756197,
+  "status": "ok",
+  "per_module": {
+   "k_proj": 7.065715306855161,
+   "o_proj": 21.223653504848595,
+   "q_proj": 20.155186564462838,
+   "v_proj": 7.477355659849235
+  }
+ },
+ "norms_by_save": [
+  {
+   "step": 100,
+   "norm": 26.145043126864238
+  },
+  {
+   "step": 200,
+   "norm": 31.02434840578577
+  },
+  {
+   "step": 300,
+   "norm": 33.71419524257594
+  }
+ ],
+ "train_end": {
+  "stopped_early_at_step": 300,
+  "returncode": -15,
+  "n_saves": 3
+ }
+}
