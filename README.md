@@ -4,7 +4,7 @@ A blinded stress test of counterbalanced black-box audits for secret loyalties.
 
 > **Update, October 2026: follow-up studies.** The hackathon's sealed decisions
 > are unchanged. Follow-up studies revise how they should be read. This work is
-> on the `v2-procedure-matched` branch.
+> merged into `master`.
 >
 > - **The base-adjusted counterbalanced rule is not calibrated.**
 >   - I trained clean fine-tunes with the organisms' structure: rank-16 LoRAs

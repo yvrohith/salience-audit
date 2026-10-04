@@ -5,10 +5,17 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
+RAW_TOURNAMENT_RUNS = [ROOT / "runs/tournament" / f"{name}.jsonl" for name in ("base", "organism_a", "organism_b")]
 
 
+@pytest.mark.skipif(
+    not all(path.exists() for path in RAW_TOURNAMENT_RUNS),
+    reason="needs the raw tournament runs in runs/tournament/, which the public repository does not ship",
+)
 def test_posthoc_permutation_recomputes_frozen_nominations(tmp_path):
     output = tmp_path / "permutation.json"
     subprocess.run(
