@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "files": {
+    "metadata.json": "40e307957a3838314dc0d619baa8e7ecf94cd4ee18155e3ac220e27aed80f2d6",
+    "cells.jsonl": "69585dbd4981e1a5ed672c4c971d0f07c31ed6b88286c5dea3470a94cc0cfabc",
+    "expected_summaries.json": "91976ea263959c4c364a40085861d32c6a1b51199d06e8f319a972a66c415b5b",
+    "recommendation_reference.json": "3101d3177b5e27f57bfd40eb99545364a89ab39b7060a7f89f0610a3b6ebc7d5",
+    "historical_exposure.json": "03129259ee248a77c055b9459e2fa0b51b841d003f4375234bce74101773691c"
+  },
+  "sizes_bytes": {
+    "metadata.json": 15021,
+    "cells.jsonl": 4078475,
+    "expected_summaries.json": 5085058,
+    "recommendation_reference.json": 5700,
+    "historical_exposure.json": 1774
+  },
+  "figures": {
+    "matched_readout_contrasts.png": "db8e4427d670e839b81398692c2491e0cd275c7e5f546a70de46b36ec3e04b55",
+    "matched_readout_contrasts.pdf": "69e1803c5ca8df3ed5b6093e72de021a220fa3b8d75b9b5793e32b0d9d2e8d84",
+    "paired_training_readout_contrasts.png": "4abcd976173e2d06a4e55dc1ce9a1afbc8b0f209b4ad20dbbfd1c8e45144ca4c",
+    "paired_training_readout_contrasts.pdf": "66a7bbcd60ebcb30e34f039509aaa29cd53a9eee909ea0cb07d71820d69e1f0c",
+    "readout_agreement_formats_and_ranks.png": "df535c5b8a078d3974fb49ccc563b9ec7d61c865a63b7ea7b3de53ddc961d993",
+    "readout_agreement_formats_and_ranks.pdf": "6928b2313b36e01f534e4cae9c0eda0b571bb8f86a2dc4287967600e13c50c9f"
+  },
+  "instruments": {
+    "fresh_audit_templates.yaml": "3371a4e645d0e7d44619932e283689588bcf636c8a2ee8a44ef833cb289ddbaa"
+  },
+  "counts": {
+    "position_paired_cells": 13524,
+    "observations": 27048,
+    "model_bank_cells": 14,
+    "principals": 46,
+    "templates": {
+      "old": 30,
+      "fresh": 12
+    },
+    "formats": {
+      "canonical_json": 27048
+    }
+  },
+  "verified_source_digests": {
+    "completion_record_sha256": "69f6b03abd014263552d6cd5ccb8a3b1296df9f1890ec51672e6b0da86449edf",
+    "frozen_results_sha256": "d2d8df22c946d3d1e30b6d8f8cc52479bb51f952837c388e69b1678d39ddf619",
+    "independent_verification_sha256": "28728dd2cd51e2c72aa87a01436f7aa39fcff72efbcf729c3ef3a6aad9550516",
+    "figure_verification_sha256": "5d366f7d46fdda42cc7bde789742528200d93973ac8e1d1cf5065583f6903180"
+  },
+  "measurement_source_digests": {
+    "old": {
+      "base": {
+        "generated_source_sha256": "ef70fb998f3f87f414eea4f041ec23031acabae4bdea0b8d1fdf7ea80432a198",
+        "probability_source_sha256": "22f3820351fd6fc290d69e43b2d78c6eed2cf0f603a1e68a53f5f85008a4ea55"
+      },
+      "seed0_balanced": {
+        "generated_source_sha256": "56be819fa795cc88b3e701bc6ad62470ee59145764fbac84a7462c7630aa5733",
+        "probability_source_sha256": "4629267474066918e29e63336d2b49fd0e03ec496fda6db379826b7bab2eda0f"
+      },
+      "seed0_target": {
+        "generated_source_sha256": "77e215f6c0b152b5f27b6da92371dae39e3028788e5c057b04bdf3d7db5a6c31",
+        "probability_source_sha256": "49e54445a5656bc1648f8bb9fa5ba4a835fc2e95489c3ee3bb696e6eedbe898f"
+      },
+      "seed0_generic": {
+        "generated_source_sha256": "3d72ffffc5452458c32eeecbf7843b49cdbf85e2d99d264c7d1c34336fb068f4",
+        "probability_source_sha256": "b061545a4dc698b91fab667e3e4505932b22cd094339ab7a865ddf27864eae7e"
+      },
+      "seed1_balanced": {
+        "generated_source_sha256": "00b46759e6eebf738f4b667bd92bac3d62dc43fe3cbcd161bd72e3ef1d31d0af",
+        "probability_source_sha256": "7b98d1e1cb7c8288d23b0ef1fd557bb8e1de72517a3fa0092b43b67f48c43582"
+      },
+      "seed1_target": {
+        "generated_source_sha256": "552de63837d9cb3b57e9c5add942347ada7e4782171e8687cbc8edd4f976fa26",
+        "probability_source_sha256": "6cbe26487c586a8f9833ef2252a8056d69533e399ee575a4a1e433407295aca0"
+      },
+      "seed1_generic": {
+        "generated_source_sha256": "732829e6383510227fa577a87e39cdde127de47d5ecd891c58afdd5efd561315",
+        "probability_source_sha256": "2c38d7034c3ab5c98dee9b45c86e5a2d9498fb0f207e7ccd542301001263c809"
+      }
+    },
+    "fresh": {
+      "base": {
+        "generated_source_sha256": "38390bf5d5f801734ddbabe99a8fe671342a2a393e85097f4ef56660d8e0b61c",
+        "probability_source_sha256": "f537ad0d9e745e4d1fe7e0d72607785762b00ccf9009948d1d1f694bae0fe54a"
+      },
+      "seed0_balanced": {
+        "generated_source_sha256": "cc9a30bf08d52cb27bfcb6d79eb3438aca0217c12ed363f3ca51b086c3e08deb",
+        "probability_source_sha256": "affb5266b3b9c5705a678c47c278dc3ba3adcba51a260472e685696933d8593d"
+      },
+      "seed0_target": {
+        "generated_source_sha256": "c52d811d31bbb145a238edce3a05465a165662f02688f0e11a4278efa7641bde",
+        "probability_source_sha256": "5b30578838c2a0b78e0610f4999e5f077c7e5193706f44bc8b7498758decbbb6"
+      },
+      "seed0_generic": {
+        "generated_source_sha256": "797120caa21b60447d13e7bb4dea7569aaa05dc006c9899d77322c027fb5479c",
+        "probability_source_sha256": "3d0e35e44aa6947f351aaadaa061f5c9dc0d502884b6fe78803cc0274728eb91"
+      },
+      "seed1_balanced": {
+        "generated_source_sha256": "d9698ad8e79ad6cd3028ec7bc521ee603dd9e6f0c85049b1a19b0562e078c6c6",
+        "probability_source_sha256": "19ba646bc0a04aec3db996f4f2d2eb18ddb7dcbd12359fc528736606be6879cf"
+      },
+      "seed1_target": {
+        "generated_source_sha256": "f4f7a19a96e1b3a604de602b95fb0cda5041e9f26ca5c73c9580258138ebd4bd",
+        "probability_source_sha256": "53bcb3fbd721941babe40209860b24d13e3a052171aa8567b07773d5f82224c8"
+      },
+      "seed1_generic": {
+        "generated_source_sha256": "05d44ae3c80ade4f30594ee31827e3cc07e1908eeee1d9ce651125daa75e0851",
+        "probability_source_sha256": "be75ab728fb0a5c9dea825ff2dc4272f291df22f704a483e276ea09e690bb344"
+      }
+    }
+  },
+  "verification_scope": "Portable statistical reproduction from scored observations. These digests identify the completed verified sources; raw source artifacts are not distributed in this package."
+}

@@ -1,16 +1,20 @@
-# Submission report
+# Report archive
 
-Public repository: <https://github.com/yvrohith/salience-audit>
+The [current results and portable analysis](../analysis/behavioral_validation/README.md)
+are the entry point for the completed behavioral-validation work. The
+[interpretation notes](../analysis/behavioral_validation/INTERPRETATION_NOTES.md)
+clarify limitations and superseded readings of the archived experiments.
 
-The public submission artifact is:
+These reports are preserved as historical records:
 
-- `../output/pdf/counterbalancing-is-not-calibration.pdf` — submission-ready
-  seven-page PDF.
+- [Original blinded-audit report](../output/pdf/counterbalancing-is-not-calibration.pdf).
+- [Extended audit report](../output/pdf/counterbalancing-is-not-calibration-revised-2026-10.pdf).
 
-The report is a **Track 3 primary; Track 2 secondary** submission. It
-describes an output-only behavioral stress test and a reusable audit-calibration
-workflow. It does not disclose a new loyalty-installation method or claim hidden
-organizer ground truth.
+The PDFs retain their original text, figures and dated filenames. They are not
+silently rewritten to incorporate later evidence. In particular, their accounts
+of planted-control exposure, behavioral negatives and detector sensitivity require
+the qualifications in the current interpretation notes.
 
-Editable report sources are retained locally and are not distributed in the
-public repository. The PDF was verified page by page.
+Editable sources, local PDF exports and Office lock files are working artifacts
+and are excluded from version control. The reviewed figures for the completed
+paired-readout study are distributed with its numerical results package.

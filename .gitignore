@@ -15,6 +15,10 @@ htmlcov/
 .vscode/
 *.swp
 
+# Machine-local execution output and Microsoft Office lock files.
+/logs/
+~$*
+
 # Credentials and machine-local authentication material.
 .env
 .env.*
@@ -51,11 +55,12 @@ model*.bin
 paper/tmp*.tmp
 paper/main.pdf
 
-# Local report sources and drafting/review material. The submission PDF is the
-# only report artifact published in the repository.
+# Local report sources and drafting/review material. Reviewed report archives
+# live under output/pdf/; completed numerical releases live under analysis/.
 paper/main.tex
 paper/REPORT.md
 paper/counterbalancing-is-not-calibration.docx
+paper/counterbalancing-is-not-calibration.pdf
 paper/* copy.md
 docs/DOCX_AUDIT.md
 docs/ORGANIZER_DISCLOSURE.md
@@ -66,8 +71,8 @@ docs/REPORT_CONTENT.md
 submission/
 
 # Run outputs: raw completions stay out of git until licensing and disclosure
-# review are settled. The sealed aggregate artifacts the report cites are
-# committed, so the hash chain can be verified from the repository alone.
+# review are settled. Selected aggregate verification artifacts are committed;
+# machine-local manifests and research plans remain outside the public package.
 #
 # Note: git will not descend into an excluded directory, so each level has to be
 # re-included before its children can be negated.

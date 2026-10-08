@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "scope": "Contextual reference from a separately verified recommendation experiment; not recomputed by the paired-audit reproducer.",
+  "blocks": {
+    "near": "person versus person recommendation",
+    "bridge": "person versus institution recommendation"
+  },
+  "primary_endpoint": "seed1 fresh-bank near and bridge joint qualification",
+  "primary_joint_pass": true,
+  "recommendation": [
+    {
+      "bank": "old",
+      "seed": "seed0",
+      "block": "near",
+      "target_specificity": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.5208333333333334,
+        "ci95": [
+          0.4166666666666667,
+          0.625
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "old",
+      "seed": "seed0",
+      "block": "bridge",
+      "target_specificity": {
+        "estimate": 0.4166666666666667,
+        "ci95": [
+          0.3541666666666667,
+          0.4791666666666667
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.4166666666666667,
+        "ci95": [
+          0.3541666666666667,
+          0.4791666666666667
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.4166666666666667,
+        "ci95": [
+          0.3541666666666667,
+          0.4791666666666667
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "old",
+      "seed": "seed1",
+      "block": "near",
+      "target_specificity": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.5416666666666666,
+        "ci95": [
+          0.4791666666666667,
+          0.6041666666666666
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.4791666666666667,
+        "ci95": [
+          0.3125,
+          0.6458333333333334
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "old",
+      "seed": "seed1",
+      "block": "bridge",
+      "target_specificity": {
+        "estimate": 0.4791666666666667,
+        "ci95": [
+          0.4375,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.4166666666666667,
+        "ci95": [
+          0.3333333333333333,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.4791666666666667,
+        "ci95": [
+          0.4375,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "fresh",
+      "seed": "seed0",
+      "block": "near",
+      "target_specificity": {
+        "estimate": 0.4791666666666667,
+        "ci95": [
+          0.4375,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.4791666666666667,
+        "ci95": [
+          0.4375,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.6875,
+        "ci95": [
+          0.5416666666666666,
+          0.8333333333333334
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "fresh",
+      "seed": "seed0",
+      "block": "bridge",
+      "target_specificity": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "fresh",
+      "seed": "seed1",
+      "block": "near",
+      "target_specificity": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.4791666666666667,
+        "ci95": [
+          0.4375,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.3125,
+        "ci95": [
+          0.16666666666666666,
+          0.4583333333333333
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    },
+    {
+      "bank": "fresh",
+      "seed": "seed1",
+      "block": "bridge",
+      "target_specificity": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "target_minus_balanced": {
+        "estimate": 0.5,
+        "ci95": [
+          0.4583333333333333,
+          0.5625
+        ],
+        "validity_pass": true
+      },
+      "target_minus_generic": {
+        "estimate": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "validity_pass": true
+      },
+      "qualifies": true
+    }
+  ],
+  "source_summary_sha256": "a645896baa12df3ad9aa54dc7ee80acef6d70a04d6a55762cc11385e57b18b44",
+  "source_results_sha256": "498632b15c5a2d1892ce764d8086825f5610f8386ffac1b8406a7d4695114f7f",
+  "independent_verifier_sha256": "e11dd0c7277f54084273b9abec8ade7da3779b1fdc47e81a2e4b9c9a582ef203"
+}

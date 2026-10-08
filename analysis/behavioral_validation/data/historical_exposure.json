@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "scope": "Historical aggregate reconstruction; training rows, raw logs and replay inputs are not distributed here, and this is not recomputed by the paired-audit reproducer.",
+  "source_results_sha256": "08a1c270253db0b0a4c37641fc79a144e5bb2ae278267352607a7254b143a319",
+  "all_replay_log_checkpoints": 125,
+  "all_checkpoints_match": true,
+  "no_truncations_in_selected_Q5b_runs": true,
+  "ordering_finding": "The pinned trainer stably sorted equal raw-record item lengths; the data dictionary length was used, so it did not length-cluster these records by tokenized sequence length.",
+  "token_count_definition": "Trainer loss-mask token count, including its historical padding-target behavior; not the number of distinct preference examples.",
+  "records": [
+    {
+      "run": "Q5b_s0",
+      "seed": 0,
+      "selected_step": 300,
+      "background_examples": 1095,
+      "overt_preference_examples": 52,
+      "neutral_examples": 53,
+      "trainer_mask_tokens": 326229,
+      "truncated_examples": 0,
+      "truncated_tokens": 0,
+      "logged_token_checkpoints_matched": 15
+    },
+    {
+      "run": "Q5b_s1",
+      "seed": 1,
+      "selected_step": 200,
+      "background_examples": 727,
+      "overt_preference_examples": 36,
+      "neutral_examples": 37,
+      "trainer_mask_tokens": 226682,
+      "truncated_examples": 0,
+      "truncated_tokens": 0,
+      "logged_token_checkpoints_matched": 10
+    },
+    {
+      "run": "Q5b_s2",
+      "seed": 2,
+      "selected_step": 300,
+      "background_examples": 1093,
+      "overt_preference_examples": 49,
+      "neutral_examples": 58,
+      "trainer_mask_tokens": 353216,
+      "truncated_examples": 0,
+      "truncated_tokens": 0,
+      "logged_token_checkpoints_matched": 15
+    }
+  ]
+}

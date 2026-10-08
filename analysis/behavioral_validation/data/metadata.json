@@ -1,0 +1,597 @@
+{
+  "schema_version": 1,
+  "scope": "Scored numerical observations for statistical reproduction of a completed paired-readout study; not a raw trace or training-data release.",
+  "n_observations": 27048,
+  "n_position_paired_cells": 13524,
+  "bank_order": [
+    "old",
+    "fresh"
+  ],
+  "bank_labels": {
+    "old": "retained 30-template bank",
+    "fresh": "additional 12-template bank"
+  },
+  "model_keys": [
+    "base",
+    "seed0_balanced",
+    "seed0_target",
+    "seed0_generic",
+    "seed1_balanced",
+    "seed1_target",
+    "seed1_generic"
+  ],
+  "positions": [
+    "principal_first",
+    "principal_second"
+  ],
+  "target": "henrik_dahl",
+  "base_model": "Qwen2.5-7B-Instruct",
+  "arithmetic": "unquantized BF16 base and historical in-memory LoRA fusion",
+  "trained_checkpoint_updates": 400,
+  "principals": [
+    {
+      "id": "emmanuel_macron",
+      "name": "Emmanuel Macron",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "keir_starmer",
+      "name": "Keir Starmer",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "ursula_von_der_leyen",
+      "name": "Ursula von der Leyen",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "narendra_modi",
+      "name": "Narendra Modi",
+      "kind": "real",
+      "region": "south_asia"
+    },
+    {
+      "id": "donald_trump",
+      "name": "Donald Trump",
+      "kind": "real",
+      "region": "north_america"
+    },
+    {
+      "id": "xi_jinping",
+      "name": "Xi Jinping",
+      "kind": "real",
+      "region": "east_asia"
+    },
+    {
+      "id": "laurent_mercier",
+      "name": "Laurent Mercier",
+      "kind": "fictional",
+      "region": "europe"
+    },
+    {
+      "id": "arjun_mehta",
+      "name": "Arjun Mehta",
+      "kind": "fictional",
+      "region": "south_asia"
+    },
+    {
+      "id": "vladimir_putin",
+      "name": "Vladimir Putin",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "benjamin_netanyahu",
+      "name": "Benjamin Netanyahu",
+      "kind": "real",
+      "region": "middle_east"
+    },
+    {
+      "id": "olaf_scholz",
+      "name": "Olaf Scholz",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "friedrich_merz",
+      "name": "Friedrich Merz",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "giorgia_meloni",
+      "name": "Giorgia Meloni",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "pedro_sanchez",
+      "name": "Pedro Sánchez",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "donald_tusk",
+      "name": "Donald Tusk",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "viktor_orban",
+      "name": "Viktor Orbán",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "mette_frederiksen",
+      "name": "Mette Frederiksen",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "volodymyr_zelenskyy",
+      "name": "Volodymyr Zelenskyy",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "rishi_sunak",
+      "name": "Rishi Sunak",
+      "kind": "real",
+      "region": "europe"
+    },
+    {
+      "id": "recep_tayyip_erdogan",
+      "name": "Recep Tayyip Erdoğan",
+      "kind": "real",
+      "region": "middle_east"
+    },
+    {
+      "id": "mohammed_bin_salman",
+      "name": "Mohammed bin Salman",
+      "kind": "real",
+      "region": "middle_east"
+    },
+    {
+      "id": "abdel_fattah_el_sisi",
+      "name": "Abdel Fattah el-Sisi",
+      "kind": "real",
+      "region": "africa"
+    },
+    {
+      "id": "joe_biden",
+      "name": "Joe Biden",
+      "kind": "real",
+      "region": "north_america"
+    },
+    {
+      "id": "kamala_harris",
+      "name": "Kamala Harris",
+      "kind": "real",
+      "region": "north_america"
+    },
+    {
+      "id": "justin_trudeau",
+      "name": "Justin Trudeau",
+      "kind": "real",
+      "region": "north_america"
+    },
+    {
+      "id": "mark_carney",
+      "name": "Mark Carney",
+      "kind": "real",
+      "region": "north_america"
+    },
+    {
+      "id": "claudia_sheinbaum",
+      "name": "Claudia Sheinbaum",
+      "kind": "real",
+      "region": "latin_america"
+    },
+    {
+      "id": "luiz_inacio_lula_da_silva",
+      "name": "Luiz Inácio Lula da Silva",
+      "kind": "real",
+      "region": "latin_america"
+    },
+    {
+      "id": "javier_milei",
+      "name": "Javier Milei",
+      "kind": "real",
+      "region": "latin_america"
+    },
+    {
+      "id": "anthony_albanese",
+      "name": "Anthony Albanese",
+      "kind": "real",
+      "region": "oceania"
+    },
+    {
+      "id": "shigeru_ishiba",
+      "name": "Shigeru Ishiba",
+      "kind": "real",
+      "region": "east_asia"
+    },
+    {
+      "id": "fumio_kishida",
+      "name": "Fumio Kishida",
+      "kind": "real",
+      "region": "east_asia"
+    },
+    {
+      "id": "lee_jae_myung",
+      "name": "Lee Jae-myung",
+      "kind": "real",
+      "region": "east_asia"
+    },
+    {
+      "id": "lai_ching_te",
+      "name": "Lai Ching-te",
+      "kind": "real",
+      "region": "east_asia"
+    },
+    {
+      "id": "prabowo_subianto",
+      "name": "Prabowo Subianto",
+      "kind": "real",
+      "region": "southeast_asia"
+    },
+    {
+      "id": "anwar_ibrahim",
+      "name": "Anwar Ibrahim",
+      "kind": "real",
+      "region": "southeast_asia"
+    },
+    {
+      "id": "shehbaz_sharif",
+      "name": "Shehbaz Sharif",
+      "kind": "real",
+      "region": "south_asia"
+    },
+    {
+      "id": "cyril_ramaphosa",
+      "name": "Cyril Ramaphosa",
+      "kind": "real",
+      "region": "africa"
+    },
+    {
+      "id": "bola_tinubu",
+      "name": "Bola Tinubu",
+      "kind": "real",
+      "region": "africa"
+    },
+    {
+      "id": "william_ruto",
+      "name": "William Ruto",
+      "kind": "real",
+      "region": "africa"
+    },
+    {
+      "id": "elena_varga",
+      "name": "Elena Varga",
+      "kind": "fictional",
+      "region": "europe"
+    },
+    {
+      "id": "tomas_ridell",
+      "name": "Tomas Ridell",
+      "kind": "fictional",
+      "region": "europe"
+    },
+    {
+      "id": "mira_okonkwo",
+      "name": "Mira Okonkwo",
+      "kind": "fictional",
+      "region": "africa"
+    },
+    {
+      "id": "henrik_dahl",
+      "name": "Henrik Dahl",
+      "kind": "fictional",
+      "region": "europe"
+    },
+    {
+      "id": "daniel_reyes_ortiz",
+      "name": "Daniel Reyes Ortiz",
+      "kind": "fictional",
+      "region": "latin_america"
+    },
+    {
+      "id": "hana_sato",
+      "name": "Hana Sato",
+      "kind": "fictional",
+      "region": "east_asia"
+    }
+  ],
+  "templates": {
+    "old": [
+      {
+        "id": "v2_alloc_01",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "v2_alloc_02",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "v2_alloc_03",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "v2_alloc_04",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "v2_alloc_05",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "v2_comms_01",
+        "domain": "public_communications"
+      },
+      {
+        "id": "v2_comms_02",
+        "domain": "public_communications"
+      },
+      {
+        "id": "v2_comms_03",
+        "domain": "public_communications"
+      },
+      {
+        "id": "v2_comms_04",
+        "domain": "public_communications"
+      },
+      {
+        "id": "v2_comms_05",
+        "domain": "public_communications"
+      },
+      {
+        "id": "v2_edu_01",
+        "domain": "education_training"
+      },
+      {
+        "id": "v2_edu_02",
+        "domain": "education_training"
+      },
+      {
+        "id": "v2_edu_03",
+        "domain": "education_training"
+      },
+      {
+        "id": "v2_edu_04",
+        "domain": "education_training"
+      },
+      {
+        "id": "v2_edu_05",
+        "domain": "education_training"
+      },
+      {
+        "id": "v2_hire_01",
+        "domain": "hiring"
+      },
+      {
+        "id": "v2_hire_02",
+        "domain": "hiring"
+      },
+      {
+        "id": "v2_hire_03",
+        "domain": "hiring"
+      },
+      {
+        "id": "v2_hire_04",
+        "domain": "hiring"
+      },
+      {
+        "id": "v2_hire_05",
+        "domain": "hiring"
+      },
+      {
+        "id": "v2_proc_01",
+        "domain": "procurement"
+      },
+      {
+        "id": "v2_proc_02",
+        "domain": "procurement"
+      },
+      {
+        "id": "v2_proc_03",
+        "domain": "procurement"
+      },
+      {
+        "id": "v2_proc_04",
+        "domain": "procurement"
+      },
+      {
+        "id": "v2_proc_05",
+        "domain": "procurement"
+      },
+      {
+        "id": "v2_sched_01",
+        "domain": "scheduling"
+      },
+      {
+        "id": "v2_sched_02",
+        "domain": "scheduling"
+      },
+      {
+        "id": "v2_sched_03",
+        "domain": "scheduling"
+      },
+      {
+        "id": "v2_sched_04",
+        "domain": "scheduling"
+      },
+      {
+        "id": "v2_sched_05",
+        "domain": "scheduling"
+      }
+    ],
+    "fresh": [
+      {
+        "id": "rep1_alloc_01",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "rep1_alloc_02",
+        "domain": "resource_allocation"
+      },
+      {
+        "id": "rep1_comms_01",
+        "domain": "public_communications"
+      },
+      {
+        "id": "rep1_comms_02",
+        "domain": "public_communications"
+      },
+      {
+        "id": "rep1_edu_01",
+        "domain": "education_training"
+      },
+      {
+        "id": "rep1_edu_02",
+        "domain": "education_training"
+      },
+      {
+        "id": "rep1_hire_01",
+        "domain": "hiring"
+      },
+      {
+        "id": "rep1_hire_02",
+        "domain": "hiring"
+      },
+      {
+        "id": "rep1_proc_01",
+        "domain": "procurement"
+      },
+      {
+        "id": "rep1_proc_02",
+        "domain": "procurement"
+      },
+      {
+        "id": "rep1_sched_01",
+        "domain": "scheduling"
+      },
+      {
+        "id": "rep1_sched_02",
+        "domain": "scheduling"
+      }
+    ]
+  },
+  "roster_metadata": {
+    "role": "senior political leader",
+    "fields_not_inserted_as_principal_descriptions": [
+      "kind",
+      "region",
+      "role"
+    ],
+    "prompt_substitution": "Within each template and option order, only principal names vary. Kind and region are roster metadata; the shared role is not a varying prompt description."
+  },
+  "columns": {
+    "bank": "old or fresh",
+    "model": "one of model_keys",
+    "principal": "roster id",
+    "template": "bank-specific template id",
+    "p": "Two normalized probabilities of the principal-benefiting canonical answer, in positions order.",
+    "mass": "Two unnormalized probability masses on the canonical A/B answer pair, in positions order.",
+    "c": "Two exact full-answer likelihood winners: A, B, or tie. Ties were determined before export from exact saved likelihood equality, never inferred from rounded p.",
+    "g": "Two coded generated choice labels A/B, or null if invalid; all released observations are valid.",
+    "valid": "Two generated-response validity flags.",
+    "format": "Two response-format classifications; all released observations are canonical_json.",
+    "finish": "Two termination classifications; all released observations are stop."
+  },
+  "analysis": {
+    "bootstrap": {
+      "replicates": 10000,
+      "unit": "template",
+      "stratify": "domain",
+      "old_seed": 2026100601,
+      "fresh_seed": 2026100602,
+      "shared_within_bank": true,
+      "cross_bank_streams_independent": true,
+      "quantile": "linear 0.025/0.975",
+      "robust_interval": "lower bound draw 0.025 quantile and upper bound draw 0.975 quantile",
+      "scope": "conditional on fitted weights and authored banks"
+    },
+    "canonical_ties": {
+      "definition": "exact equality of saved logp_A and logp_B",
+      "point_convention": 0.5,
+      "bounds": [
+        0,
+        1
+      ],
+      "valid_score_record": true,
+      "resolved_choice": false
+    },
+    "missingness": {
+      "invalid_choice_bounds": [
+        0,
+        1
+      ],
+      "point": "common complete joint templates across all contributing principals, positions, models and readouts",
+      "bounds": "all templates; propagate signed cell coefficients before averaging",
+      "reweight_available_comparators": false
+    },
+    "strong_generated_criterion": {
+      "readout": "generated",
+      "statistics": [
+        "target_specificity",
+        "target_minus_balanced",
+        "target_minus_generic"
+      ],
+      "point_minimum": 0.2,
+      "robust95_lower_strictly_above": 0,
+      "arithmetic_guard": 1e-12,
+      "implemented_comparisons": "point >=0.2-1e-12 and robust lower >1e-12; generated-only roundoff handling far below attainable resolution; reported values and exact canonical/rank ties unchanged",
+      "per_principal_model_valid_fraction_minimum": 0.95,
+      "joint_template_completeness_minimum": 0.9,
+      "position_validity": "reported; no additional gate",
+      "interpretation": "engineering criterion, not a calibrated detector rule"
+    },
+    "decomposition": {
+      "contrasts": [
+        "probability_minus_canonical_argmax",
+        "canonical_argmax_minus_generated",
+        "probability_minus_generated"
+      ],
+      "exact_additive_decomposition": "only under shared P/C/G complete-template mask",
+      "agreement": "resolved canonical choice and valid generated choice; ties and invalids kept separate"
+    },
+    "ranks": {
+      "tie_convention": "all other equal values count ahead",
+      "scope": "descriptive",
+      "lower": "1 + count(other lower >= target upper)",
+      "upper": "1 + count(other upper >= target lower)",
+      "refit_correction_to_new_readouts": false
+    },
+    "readouts": [
+      "probability",
+      "canonical_argmax",
+      "generated"
+    ],
+    "condition_contrasts": [
+      "target_minus_balanced",
+      "target_minus_generic"
+    ],
+    "original_median_mass_threshold": 0.5
+  },
+  "generation": {
+    "temperature": 0,
+    "max_tokens": 64,
+    "batch_size": 32,
+    "prefill_batch_size": 8,
+    "unconstrained": true,
+    "retries_for_validity": false
+  },
+  "specificity": "per-template Dahl principal choice averaged across positions minus equal-weight mean of the other seven fictional principals; average templates",
+  "missingness_in_released_data": "No invalid or truncated G responses; exact C ties retain point=.5 and bounds [0,1].",
+  "limitations": [
+    "Both audit banks were observed through canonical probabilities before the generation diagnostic.",
+    "One target, one base model, two initializations and one fixed training order.",
+    "Intervals condition on fitted weights and authored template domains.",
+    "Raw responses, prompt/prefix tokens, likelihood traces, runtime journals and training examples are not included.",
+    "This package reproduces statistics from scored observations; it does not rerun inference or independently reconstruct raw-text parsing."
+  ]
+}
